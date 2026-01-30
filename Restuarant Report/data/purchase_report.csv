@@ -1,0 +1,104 @@
+Date,Item Name,Category,Quantity,Unit,Rate,Amount,Vendor
+2026-01-01,Basmati Rice,Grains,50,Kg,85,4250,Sharma Traders
+2026-01-01,Toor Dal,Pulses,20,Kg,140,2800,Sharma Traders
+2026-01-01,Urad Dal,Pulses,15,Kg,120,1800,Sharma Traders
+2026-01-01,Chana Dal,Pulses,10,Kg,95,950,Sharma Traders
+2026-01-01,Paneer,Dairy,25,Kg,360,9000,Fresh Dairy Farm
+2026-01-01,Curd,Dairy,20,Kg,60,1200,Fresh Dairy Farm
+2026-01-01,Ghee,Dairy,10,Kg,550,5500,Fresh Dairy Farm
+2026-01-01,Onion,Vegetables,40,Kg,35,1400,Mandi Fresh
+2026-01-01,Tomato,Vegetables,35,Kg,40,1400,Mandi Fresh
+2026-01-01,Potato,Vegetables,30,Kg,30,900,Mandi Fresh
+2026-01-01,Green Peas,Vegetables,15,Kg,80,1200,Mandi Fresh
+2026-01-01,Capsicum,Vegetables,10,Kg,60,600,Mandi Fresh
+2026-01-01,Coconut,Vegetables,50,Pcs,25,1250,Mandi Fresh
+2026-01-01,Curry Leaves,Vegetables,2,Kg,200,400,Mandi Fresh
+2026-01-01,Idli Rice,Grains,30,Kg,55,1650,Sharma Traders
+2026-01-01,Mustard Seeds,Spices,2,Kg,180,360,Spice World
+2026-01-01,Cumin Seeds,Spices,3,Kg,300,900,Spice World
+2026-01-01,Red Chilli Powder,Spices,5,Kg,280,1400,Spice World
+2026-01-01,Turmeric Powder,Spices,3,Kg,200,600,Spice World
+2026-01-01,Garam Masala,Spices,4,Kg,450,1800,Spice World
+2026-01-01,Coriander Powder,Spices,4,Kg,220,880,Spice World
+2026-01-01,Cooking Oil,Oil,30,Ltr,140,4200,Sharma Traders
+2026-01-01,Atta (Wheat Flour),Grains,25,Kg,45,1125,Sharma Traders
+2026-01-01,Maida,Grains,10,Kg,50,500,Sharma Traders
+2026-01-01,Semolina (Rava),Grains,10,Kg,55,550,Sharma Traders
+2026-01-08,Basmati Rice,Grains,45,Kg,88,3960,Sharma Traders
+2026-01-08,Toor Dal,Pulses,18,Kg,142,2556,Sharma Traders
+2026-01-08,Urad Dal,Pulses,12,Kg,118,1416,Sharma Traders
+2026-01-08,Paneer,Dairy,30,Kg,365,10950,Fresh Dairy Farm
+2026-01-08,Curd,Dairy,25,Kg,62,1550,Fresh Dairy Farm
+2026-01-08,Ghee,Dairy,8,Kg,555,4440,Fresh Dairy Farm
+2026-01-08,Onion,Vegetables,45,Kg,38,1710,Mandi Fresh
+2026-01-08,Tomato,Vegetables,40,Kg,45,1800,Mandi Fresh
+2026-01-08,Potato,Vegetables,35,Kg,32,1120,Mandi Fresh
+2026-01-08,Green Peas,Vegetables,12,Kg,85,1020,Mandi Fresh
+2026-01-08,Coconut,Vegetables,45,Pcs,28,1260,Mandi Fresh
+2026-01-08,Curry Leaves,Vegetables,2,Kg,210,420,Mandi Fresh
+2026-01-08,Idli Rice,Grains,25,Kg,58,1450,Sharma Traders
+2026-01-08,Cooking Oil,Oil,25,Ltr,145,3625,Sharma Traders
+2026-01-08,Atta (Wheat Flour),Grains,30,Kg,46,1380,Sharma Traders
+2026-01-15,Basmati Rice,Grains,55,Kg,90,4950,Sharma Traders
+2026-01-15,Toor Dal,Pulses,22,Kg,145,3190,Sharma Traders
+2026-01-15,Urad Dal,Pulses,18,Kg,122,2196,Sharma Traders
+2026-01-15,Chana Dal,Pulses,12,Kg,98,1176,Sharma Traders
+2026-01-15,Paneer,Dairy,35,Kg,370,12950,Fresh Dairy Farm
+2026-01-15,Curd,Dairy,28,Kg,58,1624,Fresh Dairy Farm
+2026-01-15,Ghee,Dairy,12,Kg,560,6720,Fresh Dairy Farm
+2026-01-15,Onion,Vegetables,50,Kg,42,2100,Mandi Fresh
+2026-01-15,Tomato,Vegetables,45,Kg,48,2160,Mandi Fresh
+2026-01-15,Potato,Vegetables,40,Kg,35,1400,Mandi Fresh
+2026-01-15,Green Peas,Vegetables,18,Kg,82,1476,Mandi Fresh
+2026-01-15,Capsicum,Vegetables,12,Kg,65,780,Mandi Fresh
+2026-01-15,Coconut,Vegetables,55,Pcs,26,1430,Mandi Fresh
+2026-01-15,Curry Leaves,Vegetables,3,Kg,195,585,Mandi Fresh
+2026-01-15,Idli Rice,Grains,35,Kg,56,1960,Sharma Traders
+2026-01-15,Mustard Seeds,Spices,2,Kg,185,370,Spice World
+2026-01-15,Cumin Seeds,Spices,3,Kg,310,930,Spice World
+2026-01-15,Red Chilli Powder,Spices,4,Kg,285,1140,Spice World
+2026-01-15,Garam Masala,Spices,3,Kg,460,1380,Spice World
+2026-01-15,Cooking Oil,Oil,35,Ltr,148,5180,Sharma Traders
+2026-01-15,Atta (Wheat Flour),Grains,28,Kg,48,1344,Sharma Traders
+2026-01-15,Semolina (Rava),Grains,12,Kg,58,696,Sharma Traders
+2026-01-22,Basmati Rice,Grains,48,Kg,92,4416,Sharma Traders
+2026-01-22,Toor Dal,Pulses,20,Kg,148,2960,Sharma Traders
+2026-01-22,Urad Dal,Pulses,15,Kg,125,1875,Sharma Traders
+2026-01-22,Paneer,Dairy,32,Kg,375,12000,Fresh Dairy Farm
+2026-01-22,Curd,Dairy,22,Kg,60,1320,Fresh Dairy Farm
+2026-01-22,Ghee,Dairy,10,Kg,565,5650,Fresh Dairy Farm
+2026-01-22,Onion,Vegetables,42,Kg,40,1680,Mandi Fresh
+2026-01-22,Tomato,Vegetables,38,Kg,50,1900,Mandi Fresh
+2026-01-22,Potato,Vegetables,32,Kg,33,1056,Mandi Fresh
+2026-01-22,Green Peas,Vegetables,14,Kg,88,1232,Mandi Fresh
+2026-01-22,Coconut,Vegetables,48,Pcs,27,1296,Mandi Fresh
+2026-01-22,Curry Leaves,Vegetables,2,Kg,200,400,Mandi Fresh
+2026-01-22,Idli Rice,Grains,28,Kg,60,1680,Sharma Traders
+2026-01-22,Cumin Seeds,Spices,2,Kg,320,640,Spice World
+2026-01-22,Cooking Oil,Oil,28,Ltr,150,4200,Sharma Traders
+2026-01-22,Atta (Wheat Flour),Grains,25,Kg,47,1175,Sharma Traders
+2026-01-29,Basmati Rice,Grains,52,Kg,95,4940,Sharma Traders
+2026-01-29,Toor Dal,Pulses,24,Kg,150,3600,Sharma Traders
+2026-01-29,Urad Dal,Pulses,16,Kg,128,2048,Sharma Traders
+2026-01-29,Chana Dal,Pulses,10,Kg,100,1000,Sharma Traders
+2026-01-29,Paneer,Dairy,38,Kg,380,14440,Fresh Dairy Farm
+2026-01-29,Curd,Dairy,30,Kg,62,1860,Fresh Dairy Farm
+2026-01-29,Ghee,Dairy,14,Kg,570,7980,Fresh Dairy Farm
+2026-01-29,Onion,Vegetables,48,Kg,45,2160,Mandi Fresh
+2026-01-29,Tomato,Vegetables,42,Kg,52,2184,Mandi Fresh
+2026-01-29,Potato,Vegetables,38,Kg,36,1368,Mandi Fresh
+2026-01-29,Green Peas,Vegetables,16,Kg,90,1440,Mandi Fresh
+2026-01-29,Capsicum,Vegetables,14,Kg,68,952,Mandi Fresh
+2026-01-29,Coconut,Vegetables,52,Pcs,30,1560,Mandi Fresh
+2026-01-29,Curry Leaves,Vegetables,3,Kg,205,615,Mandi Fresh
+2026-01-29,Idli Rice,Grains,32,Kg,62,1984,Sharma Traders
+2026-01-29,Mustard Seeds,Spices,3,Kg,190,570,Spice World
+2026-01-29,Cumin Seeds,Spices,4,Kg,325,1300,Spice World
+2026-01-29,Red Chilli Powder,Spices,5,Kg,290,1450,Spice World
+2026-01-29,Turmeric Powder,Spices,3,Kg,210,630,Spice World
+2026-01-29,Garam Masala,Spices,4,Kg,470,1880,Spice World
+2026-01-29,Coriander Powder,Spices,4,Kg,230,920,Spice World
+2026-01-29,Cooking Oil,Oil,32,Ltr,152,4864,Sharma Traders
+2026-01-29,Atta (Wheat Flour),Grains,30,Kg,50,1500,Sharma Traders
+2026-01-29,Maida,Grains,12,Kg,52,624,Sharma Traders
+2026-01-29,Semolina (Rava),Grains,14,Kg,60,840,Sharma Traders

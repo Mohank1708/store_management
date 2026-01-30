@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --bg-hover: #1f2b47;
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --success: #48bb78;
+            --warning: #ed8936;
+            --danger: #fc8181;
+            --star: #f6e05e;
+            --border: rgba(255,255,255,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .app { display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .logo h1 { font-size: 1.1rem; }
+        .logo span { font-size: 0.7rem; color: var(--text-muted); display: block; }
+        
+        .nav-section { margin-bottom: 20px; }
+        .nav-section h3 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .nav-item.active { background: var(--accent-gradient); color: white; }
+        
+        /* Main */
+        .main {
+            flex: 1;
+            margin-left: 260px;
+            padding: 28px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+        .header h2 { font-size: 1.5rem; }
+        .header-sub { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+        
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+        .btn-primary { background: var(--accent-gradient); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-secondary { background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); }
+        
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+        }
+        .card.success::before { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .card.warning::before { background: linear-gradient(135deg, #ed8936, #dd6b20); }
+        .card-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+        .card-value { font-size: 1.5rem; font-weight: 700; }
+        .card-sub { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+        
+        /* Sections */
+        .section {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title { display: flex; align-items: center; gap: 10px; }
+        .section-title h3 { font-size: 1rem; }
+        .section-badge {
+            padding: 3px 10px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            font-size: 0.7rem;
+            color: var(--accent-primary);
+        }
+        .section-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px; }
+        
+        .chart-box {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 16px;
+            height: 280px;
+        }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        
+        /* Table */
+        .tbl { width: 100%; border-collapse: collapse; }
+        .tbl th, .tbl td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+        .tbl th { background: var(--bg-secondary); font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); }
+        .tbl tr:hover { background: var(--bg-hover); }
+        .tbl td { font-size: 0.85rem; }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .badge-success { background: rgba(72, 187, 120, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(237, 137, 54, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(252, 129, 129, 0.2); color: var(--danger); }
+        .badge-star { background: rgba(246, 224, 94, 0.2); color: var(--star); }
+        .badge-primary { background: rgba(102, 126, 234, 0.2); color: var(--accent-primary); }
+        .badge-muted { background: rgba(160, 174, 192, 0.2); color: var(--text-secondary); }
+        
+        /* Menu Grid */
+        .menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .menu-cat {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 16px;
+            border-left: 3px solid;
+        }
+        .menu-cat.star { border-color: var(--star); }
+        .menu-cat.plow { border-color: #4299e1; }
+        .menu-cat.puzzle { border-color: #9f7aea; }
+        .menu-cat.dog { border-color: #718096; }
+        .menu-cat h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.9rem; }
+        .menu-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+        .menu-item:last-child { border: none; }
+        
+        /* Modal */
+        .modal-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-bg.show { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 28px;
+            width: 480px;
+            max-width: 90%;
+            border: 1px solid var(--border);
+        }
+        .modal h3 { font-size: 1.1rem; margin-bottom: 6px; }
+        .modal p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.85rem; }
+        .upload-box {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .upload-box:hover { border-color: var(--accent-primary); background: var(--bg-hover); }
+        .upload-box label { cursor: pointer; color: var(--text-secondary); font-size: 0.85rem; }
+        .upload-box input { display: none; }
+        .upload-box strong { display: block; margin-bottom: 4px; color: var(--text-primary); }
+        .modal-btns { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        @media (max-width: 1200px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; }
+            .cards, .menu-grid, .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🍽️</div>
+                <div>
+                    <h1>Analytics</h1>
+                    <span>Restaurant Dashboard</span>
+                </div>
+            </div>
+            
+            <nav class="nav-section">
+                <h3>Overview</h3>
+                <a href="#" class="nav-item active" onclick="showTab('overview', this)">
+                    <span>📊</span> Dashboard
+                </a>
+            </nav>
+            
+            <nav class="nav-section">
+                <h3>Analysis</h3>
+                <a href="#" class="nav-item" onclick="showTab('leakage', this)">
+                    <span>🔍</span> Leakage & Waste
+                </a>
+                <a href="#" class="nav-item" onclick="showTab('consumption', this)">
+                    <span>📈</span> Consumption Patterns
+                </a>
+                <a href="#" class="nav-item" onclick="showTab('pricing', this)">
+                    <span>💰</span> Price Trends
+                </a>
+                <a href="#" class="nav-item" onclick="showTab('menu', this)">
+                    <span>⭐</span> Menu Engineering
+                </a>
+            </nav>
+            
+            <nav class="nav-section" style="margin-top: auto;">
+                <h3>Data</h3>
+                <a href="#" class="nav-item" onclick="openModal()">
+                    <span>📁</span> Upload Files
+                </a>
+                <a href="#" class="nav-item" onclick="resetData()">
+                    <span>🔄</span> Reset to Sample
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <div class="header">
+                <div>
+                    <h2 id="page-title">Dashboard Overview</h2>
+                    <p class="header-sub" id="date-range">Loading...</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="refreshData()">🔄 Refresh</button>
+                    <button class="btn btn-primary" onclick="openModal()">📁 Upload Data</button>
+                </div>
+            </div>
+
+            <div class="cards" id="summary-cards">
+                <div class="card"><div class="card-label">Loading...</div></div>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="tab-overview" class="tab-content active">
+                <div class="grid-2">
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <h3>📈 Daily Sales Trend</h3>
+                            </div>
+                        </div>
+                        <div class="chart-box"><canvas id="salesTrendChart"></canvas></div>
+                    </div>
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <h3>💰 Price Changes</h3>
+                            </div>
+                        </div>
+                        <div class="chart-box"><canvas id="priceOverviewChart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leakage Tab -->
+            <div id="tab-leakage" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h3>🔍 Leakage & Waste Analysis</h3>
+                            <span class="section-badge">Purchase vs Kitchen</span>
+                        </div>
+                    </div>
+                    <p class="section-desc">Compares purchased quantities against kitchen issues. Positive difference = potential waste/theft.</p>
+                    <div class="chart-box" style="height: 320px;"><canvas id="leakageChart"></canvas></div>
+                    <div id="leakage-table" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Consumption Tab -->
+            <div id="tab-consumption" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h3>📈 Kitchen Consumption Patterns</h3>
+                            <span class="section-badge">Top 10 Items</span>
+                        </div>
+                    </div>
+                    <p class="section-desc">Analyzes daily usage patterns and consistency of ingredient consumption.</p>
+                    <div class="chart-box" style="height: 320px;"><canvas id="consumptionChart"></canvas></div>
+                    <div id="consumption-table" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Pricing Tab -->
+            <div id="tab-pricing" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h3>💰 Purchase Price Trends</h3>
+                            <span class="section-badge">Top 5 by Value</span>
+                        </div>
+                    </div>
+                    <p class="section-desc">Tracks price changes of most-purchased ingredients.</p>
+                    <div class="chart-box" style="height: 320px;"><canvas id="priceTrendChart"></canvas></div>
+                    <div id="price-table" style="margin-top: 20px;"></div>
+                </div>
+            </div>
+
+            <!-- Menu Tab -->
+            <div id="tab-menu" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <h3>⭐ Menu Engineering</h3>
+                            <span class="section-badge">BCG Matrix</span>
+                        </div>
+                    </div>
+                    <p class="section-desc">Classifies menu items by popularity and profitability.</p>
+                    <div class="menu-grid" id="menu-grid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal-bg" id="uploadModal">
+        <div class="modal">
+            <h3>📁 Upload Your Reports</h3>
+            <p>Only 3 files needed - No recipe data required!</p>
+            
+            <form id="uploadForm">
+                <div class="upload-box" onclick="this.querySelector('input').click()">
+                    <label>
+                        <strong>1. Purchase Report</strong>
+                        <input type="file" name="purchase" accept=".csv,.xlsx,.xls" onchange="updateLabel(this, 'p-label')">
+                        <span id="p-label">Click to select</span>
+                    </label>
+                </div>
+                <div class="upload-box" onclick="this.querySelector('input').click()">
+                    <label>
+                        <strong>2. Store to Kitchen Report</strong>
+                        <input type="file" name="stk" accept=".csv,.xlsx,.xls" onchange="updateLabel(this, 's-label')">
+                        <span id="s-label">Click to select</span>
+                    </label>
+                </div>
+                <div class="upload-box" onclick="this.querySelector('input').click()">
+                    <label>
+                        <strong>3. Sales Report</strong>
+                        <input type="file" name="sales" accept=".csv,.xlsx,.xls" onchange="updateLabel(this, 'sl-label')">
+                        <span id="sl-label">Click to select</span>
+                    </label>
+                </div>
+            </form>
+            
+            <div class="modal-btns">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="uploadFiles()">Upload & Analyze</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let charts = {};
+        
+        function showTab(name, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            if (el) el.classList.add('active');
+            
+            const titles = {
+                'overview': 'Dashboard Overview',
+                'leakage': 'Leakage & Waste Analysis',
+                'consumption': 'Kitchen Consumption Patterns',
+                'pricing': 'Price Trend Analysis',
+                'menu': 'Menu Engineering'
+            };
+            document.getElementById('page-title').textContent = titles[name] || 'Dashboard';
+        }
+        
+        function openModal() { document.getElementById('uploadModal').classList.add('show'); }
+        function closeModal() { document.getElementById('uploadModal').classList.remove('show'); }
+        function updateLabel(input, id) { document.getElementById(id).textContent = input.files[0]?.name || 'Click to select'; }
+        
+        function fmt(v) { return '₹' + Math.abs(v).toLocaleString('en-IN', {maximumFractionDigits: 0}); }
+        
+        function chartOpts() {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#a0aec0' } } },
+                scales: {
+                    x: { ticks: { color: '#718096' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    y: { ticks: { color: '#718096' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                }
+            };
+        }
+        
+        async function loadSummary() {
+            const res = await fetch('/api/summary');
+            const d = await res.json();
+            document.getElementById('date-range').textContent = `${d.date_range.start} - ${d.date_range.end}`;
+            document.getElementById('summary-cards').innerHTML = `
+                <div class="card success"><div class="card-label">Total Revenue</div><div class="card-value">${fmt(d.total_revenue)}</div><div class="card-sub">📈 This period</div></div>
+                <div class="card success"><div class="card-label">Total Profit</div><div class="card-value">${fmt(d.total_profit)}</div><div class="card-sub">💰 Net earnings</div></div>
+                <div class="card"><div class="card-label">Purchase Value</div><div class="card-value">${fmt(d.total_purchase)}</div><div class="card-sub">🛒 Raw materials</div></div>
+                <div class="card"><div class="card-label">Items Sold</div><div class="card-value">${d.total_items_sold.toLocaleString()}</div><div class="card-sub">🍽️ Total orders</div></div>
+            `;
+        }
+        
+        async function loadDailySales() {
+            const res = await fetch('/api/daily-sales');
+            const data = await res.json();
+            const ctx = document.getElementById('salesTrendChart').getContext('2d');
+            if (charts.sales) charts.sales.destroy();
+            charts.sales = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => d.Date.slice(5)),
+                    datasets: [{
+                        label: 'Revenue',
+                        data: data.map(d => d.Revenue),
+                        borderColor: '#667eea',
+                        backgroundColor: '#667eea33',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: chartOpts()
+            });
+        }
+        
+        async function loadLeakage() {
+            const res = await fetch('/api/leakage');
+            const data = await res.json();
+            const top = data.slice(0, 10);
+            
+            const ctx = document.getElementById('leakageChart').getContext('2d');
+            if (charts.leakage) charts.leakage.destroy();
+            charts.leakage = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: top.map(d => d['Item Name']),
+                    datasets: [
+                        { label: 'Purchased', data: top.map(d => d['Total Purchased']), backgroundColor: 'rgba(102,126,234,0.8)' },
+                        { label: 'Issued', data: top.map(d => d['Total Issued']), backgroundColor: 'rgba(118,75,162,0.8)' }
+                    ]
+                },
+                options: chartOpts()
+            });
+            
+            let html = `<table class="tbl"><thead><tr><th>Item</th><th>Purchased</th><th>Issued</th><th>Difference</th><th>Leakage %</th><th>Value Lost</th><th>Status</th></tr></thead><tbody>`;
+            data.forEach(d => {
+                const cls = d['Leakage %'] > 15 ? 'danger' : d['Leakage %'] > 10 ? 'warning' : 'success';
+                const st = d['Leakage %'] > 15 ? 'HIGH' : d['Leakage %'] > 10 ? 'MED' : 'OK';
+                html += `<tr><td>${d['Item Name']}</td><td>${d['Total Purchased'].toFixed(1)}</td><td>${d['Total Issued'].toFixed(1)}</td><td>${d['Difference'].toFixed(1)}</td><td>${d['Leakage %'].toFixed(1)}%</td><td>${fmt(d['Value Lost'])}</td><td><span class="badge badge-${cls}">${st}</span></td></tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('leakage-table').innerHTML = html;
+        }
+        
+        async function loadConsumption() {
+            const res = await fetch('/api/consumption');
+            const data = await res.json();
+            
+            const ctx = document.getElementById('consumptionChart').getContext('2d');
+            if (charts.consumption) charts.consumption.destroy();
+            charts.consumption = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d['Item Name']),
+                    datasets: [
+                        { label: 'Daily Avg', data: data.map(d => d['Daily Avg']), backgroundColor: 'rgba(72,187,120,0.8)' },
+                        { label: 'Daily Max', data: data.map(d => d['Daily Max']), backgroundColor: 'rgba(237,137,54,0.5)' }
+                    ]
+                },
+                options: chartOpts()
+            });
+            
+            let html = `<table class="tbl"><thead><tr><th>Item</th><th>Total Used</th><th>Daily Avg</th><th>Daily Min</th><th>Daily Max</th><th>Consistency</th></tr></thead><tbody>`;
+            data.forEach(d => {
+                const cls = d['Consistency %'] > 80 ? 'success' : d['Consistency %'] > 60 ? 'warning' : 'danger';
+                html += `<tr><td>${d['Item Name']}</td><td>${d['Total Used'].toFixed(1)}</td><td>${d['Daily Avg'].toFixed(1)}</td><td>${d['Daily Min'].toFixed(1)}</td><td>${d['Daily Max'].toFixed(1)}</td><td><span class="badge badge-${cls}">${d['Consistency %'].toFixed(0)}%</span></td></tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('consumption-table').innerHTML = html;
+        }
+        
+        async function loadPriceTrends() {
+            const res = await fetch('/api/price-trends');
+            const data = await res.json();
+            const colors = ['#667eea', '#764ba2', '#48bb78', '#ed8936', '#fc8181'];
+            
+            const ctxO = document.getElementById('priceOverviewChart').getContext('2d');
+            if (charts.priceOver) charts.priceOver.destroy();
+            charts.priceOver = new Chart(ctxO, {
+                type: 'bar',
+                data: {
+                    labels: data.map(d => d.item),
+                    datasets: [
+                        { label: 'Start', data: data.map(d => d.first_price), backgroundColor: 'rgba(102,126,234,0.8)' },
+                        { label: 'End', data: data.map(d => d.last_price), backgroundColor: 'rgba(237,137,54,0.8)' }
+                    ]
+                },
+                options: chartOpts()
+            });
+            
+            const ctx = document.getElementById('priceTrendChart').getContext('2d');
+            if (charts.priceTrend) charts.priceTrend.destroy();
+            charts.priceTrend = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data[0]?.dates || [],
+                    datasets: data.map((d, i) => ({
+                        label: d.item,
+                        data: d.prices,
+                        borderColor: colors[i],
+                        tension: 0.4,
+                        fill: false
+                    }))
+                },
+                options: chartOpts()
+            });
+            
+            let html = `<table class="tbl"><thead><tr><th>Ingredient</th><th>Start</th><th>End</th><th>Change</th><th>Action</th></tr></thead><tbody>`;
+            data.forEach(d => {
+                const cls = d.change > 10 ? 'danger' : d.change > 5 ? 'warning' : 'success';
+                const act = d.change > 10 ? 'Find alt. vendor' : d.change > 5 ? 'Monitor' : d.change < -5 ? 'Stock up' : 'Stable';
+                html += `<tr><td>${d.item}</td><td>₹${d.first_price}</td><td>₹${d.last_price}</td><td><span class="badge badge-${cls}">${d.change >= 0 ? '+' : ''}${d.change.toFixed(1)}%</span></td><td>${act}</td></tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('price-table').innerHTML = html;
+        }
+        
+        async function loadMenu() {
+            const res = await fetch('/api/menu-engineering');
+            const data = await res.json();
+            
+            const cats = [
+                { key: 'STAR', cls: 'star', icon: '⭐', title: 'Stars', desc: 'High Profit + High Pop' },
+                { key: 'PLOW HORSE', cls: 'plow', icon: '🐴', title: 'Plow Horses', desc: 'High Pop, Low Profit' },
+                { key: 'PUZZLE', cls: 'puzzle', icon: '🧩', title: 'Puzzles', desc: 'Low Pop, High Profit' },
+                { key: 'DOG', cls: 'dog', icon: '🐕', title: 'Dogs', desc: 'Low Pop + Low Profit' }
+            ];
+            
+            let html = '';
+            cats.forEach(c => {
+                const items = data.data.filter(d => d.Classification === c.key).sort((a, b) => b.Revenue - a.Revenue);
+                html += `<div class="menu-cat ${c.cls}"><h4>${c.icon} ${c.title} <span class="badge badge-${c.cls === 'star' ? 'star' : 'primary'}">${items.length}</span></h4>`;
+                items.forEach(i => {
+                    html += `<div class="menu-item"><span>${i['Item Name']}</span><span style="color:var(--text-muted)">${fmt(i.Revenue)} | ${i['Profit Margin %'].toFixed(0)}%</span></div>`;
+                });
+                html += '</div>';
+            });
+            document.getElementById('menu-grid').innerHTML = html;
+        }
+        
+        async function uploadFiles() {
+            const form = document.getElementById('uploadForm');
+            const fd = new FormData(form);
+            const res = await fetch('/api/upload', { method: 'POST', body: fd });
+            const data = await res.json();
+            if (data.success) { closeModal(); refreshData(); alert('Success!'); }
+            else alert('Error: ' + data.message);
+        }
+        
+        async function resetData() {
+            await fetch('/api/reset');
+            refreshData();
+        }
+        
+        async function refreshData() {
+            await Promise.all([loadSummary(), loadDailySales(), loadLeakage(), loadConsumption(), loadPriceTrends(), loadMenu()]);
+        }
+        
+        document.addEventListener('DOMContentLoaded', refreshData);
+    </script>
+</body>
+</html>

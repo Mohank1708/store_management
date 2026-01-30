@@ -1,0 +1,621 @@
+Date,Item Name,Category,Quantity Sold,Price,Revenue,Food Cost,Profit
+2026-01-01,Masala Dosa,South Indian,29,120,3480,1015,2465
+2026-01-01,Plain Dosa,South Indian,19,80,1520,380,1140
+2026-01-01,Idli Sambar (4 pcs),South Indian,28,70,1960,504,1456
+2026-01-01,Medu Vada (2 pcs),South Indian,9,60,540,135,405
+2026-01-01,Uttapam,South Indian,10,100,1000,280,720
+2026-01-01,Pongal,South Indian,9,90,810,225,585
+2026-01-01,Rava Dosa,South Indian,13,110,1430,390,1040
+2026-01-01,Set Dosa (3 pcs),South Indian,6,90,540,240,300
+2026-01-01,Paneer Butter Masala,North Indian,16,280,4480,1360,3120
+2026-01-01,Dal Makhani,North Indian,20,220,4400,1100,3300
+2026-01-01,Chole Bhature,North Indian,32,160,5120,1440,3680
+2026-01-01,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-01,Aloo Paratha,North Indian,32,80,2560,800,1760
+2026-01-01,Kadai Paneer,North Indian,10,270,2700,900,1800
+2026-01-01,Veg Biryani,North Indian,16,200,3200,960,2240
+2026-01-01,Mixed Veg Curry,North Indian,6,180,1080,420,660
+2026-01-01,Malai Kofta,North Indian,3,290,870,300,570
+2026-01-01,Butter Naan,North Indian,20,50,1000,300,700
+2026-01-01,Roti,North Indian,15,25,375,120,255
+2026-01-01,Jeera Rice,North Indian,15,120,1800,525,1275
+2026-01-02,Masala Dosa,South Indian,29,120,3480,1015,2465
+2026-01-02,Plain Dosa,South Indian,24,80,1920,480,1440
+2026-01-02,Idli Sambar (4 pcs),South Indian,33,70,2310,594,1716
+2026-01-02,Medu Vada (2 pcs),South Indian,8,60,480,120,360
+2026-01-02,Uttapam,South Indian,12,100,1200,336,864
+2026-01-02,Pongal,South Indian,7,90,630,175,455
+2026-01-02,Rava Dosa,South Indian,11,110,1210,330,880
+2026-01-02,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-02,Paneer Butter Masala,North Indian,31,280,8680,2635,6045
+2026-01-02,Dal Makhani,North Indian,24,220,5280,1320,3960
+2026-01-02,Chole Bhature,North Indian,31,160,4960,1395,3565
+2026-01-02,Palak Paneer,North Indian,11,260,2860,880,1980
+2026-01-02,Aloo Paratha,North Indian,19,80,1520,475,1045
+2026-01-02,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-02,Veg Biryani,North Indian,20,200,4000,1200,2800
+2026-01-02,Mixed Veg Curry,North Indian,7,180,1260,490,770
+2026-01-02,Malai Kofta,North Indian,4,290,1160,400,760
+2026-01-02,Butter Naan,North Indian,27,50,1350,405,945
+2026-01-02,Roti,North Indian,25,25,625,200,425
+2026-01-02,Jeera Rice,North Indian,10,120,1200,350,850
+2026-01-03,Masala Dosa,South Indian,40,120,4800,1400,3400
+2026-01-03,Plain Dosa,South Indian,42,80,3360,840,2520
+2026-01-03,Idli Sambar (4 pcs),South Indian,35,70,2450,630,1820
+2026-01-03,Medu Vada (2 pcs),South Indian,18,60,1080,270,810
+2026-01-03,Uttapam,South Indian,21,100,2100,588,1512
+2026-01-03,Pongal,South Indian,8,90,720,200,520
+2026-01-03,Rava Dosa,South Indian,21,110,2310,630,1680
+2026-01-03,Set Dosa (3 pcs),South Indian,8,90,720,320,400
+2026-01-03,Paneer Butter Masala,North Indian,23,280,6440,1955,4485
+2026-01-03,Dal Makhani,North Indian,23,220,5060,1265,3795
+2026-01-03,Chole Bhature,North Indian,44,160,7040,1980,5060
+2026-01-03,Palak Paneer,North Indian,23,260,5980,1840,4140
+2026-01-03,Aloo Paratha,North Indian,46,80,3680,1150,2530
+2026-01-03,Kadai Paneer,North Indian,14,270,3780,1260,2520
+2026-01-03,Veg Biryani,North Indian,26,200,5200,1560,3640
+2026-01-03,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-03,Malai Kofta,North Indian,8,290,2320,800,1520
+2026-01-03,Butter Naan,North Indian,33,50,1650,495,1155
+2026-01-03,Roti,North Indian,28,25,700,224,476
+2026-01-03,Jeera Rice,North Indian,11,120,1320,385,935
+2026-01-04,Masala Dosa,South Indian,26,120,3120,910,2210
+2026-01-04,Plain Dosa,South Indian,32,80,2560,640,1920
+2026-01-04,Idli Sambar (4 pcs),South Indian,36,70,2520,648,1872
+2026-01-04,Medu Vada (2 pcs),South Indian,23,60,1380,345,1035
+2026-01-04,Uttapam,South Indian,12,100,1200,336,864
+2026-01-04,Pongal,South Indian,4,90,360,100,260
+2026-01-04,Rava Dosa,South Indian,23,110,2530,690,1840
+2026-01-04,Set Dosa (3 pcs),South Indian,9,90,810,360,450
+2026-01-04,Paneer Butter Masala,North Indian,32,280,8960,2720,6240
+2026-01-04,Dal Makhani,North Indian,40,220,8800,2200,6600
+2026-01-04,Chole Bhature,North Indian,40,160,6400,1800,4600
+2026-01-04,Palak Paneer,North Indian,21,260,5460,1680,3780
+2026-01-04,Aloo Paratha,North Indian,35,80,2800,875,1925
+2026-01-04,Kadai Paneer,North Indian,11,270,2970,990,1980
+2026-01-04,Veg Biryani,North Indian,25,200,5000,1500,3500
+2026-01-04,Mixed Veg Curry,North Indian,4,180,720,280,440
+2026-01-04,Malai Kofta,North Indian,4,290,1160,400,760
+2026-01-04,Butter Naan,North Indian,23,50,1150,345,805
+2026-01-04,Roti,North Indian,47,25,1175,376,799
+2026-01-04,Jeera Rice,North Indian,21,120,2520,735,1785
+2026-01-05,Masala Dosa,South Indian,28,120,3360,980,2380
+2026-01-05,Plain Dosa,South Indian,28,80,2240,560,1680
+2026-01-05,Idli Sambar (4 pcs),South Indian,16,70,1120,288,832
+2026-01-05,Medu Vada (2 pcs),South Indian,17,60,1020,255,765
+2026-01-05,Uttapam,South Indian,15,100,1500,420,1080
+2026-01-05,Pongal,South Indian,5,90,450,125,325
+2026-01-05,Rava Dosa,South Indian,14,110,1540,420,1120
+2026-01-05,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-05,Paneer Butter Masala,North Indian,29,280,8120,2465,5655
+2026-01-05,Dal Makhani,North Indian,28,220,6160,1540,4620
+2026-01-05,Chole Bhature,North Indian,25,160,4000,1125,2875
+2026-01-05,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-05,Aloo Paratha,North Indian,20,80,1600,500,1100
+2026-01-05,Kadai Paneer,North Indian,10,270,2700,900,1800
+2026-01-05,Veg Biryani,North Indian,33,200,6600,1980,4620
+2026-01-05,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-05,Malai Kofta,North Indian,3,290,870,300,570
+2026-01-05,Butter Naan,North Indian,19,50,950,285,665
+2026-01-05,Roti,North Indian,24,25,600,192,408
+2026-01-05,Jeera Rice,North Indian,14,120,1680,490,1190
+2026-01-06,Masala Dosa,South Indian,31,120,3720,1085,2635
+2026-01-06,Plain Dosa,South Indian,21,80,1680,420,1260
+2026-01-06,Idli Sambar (4 pcs),South Indian,26,70,1820,468,1352
+2026-01-06,Medu Vada (2 pcs),South Indian,16,60,960,240,720
+2026-01-06,Uttapam,South Indian,8,100,800,224,576
+2026-01-06,Pongal,South Indian,7,90,630,175,455
+2026-01-06,Rava Dosa,South Indian,11,110,1210,330,880
+2026-01-06,Set Dosa (3 pcs),South Indian,3,90,270,120,150
+2026-01-06,Paneer Butter Masala,North Indian,18,280,5040,1530,3510
+2026-01-06,Dal Makhani,North Indian,24,220,5280,1320,3960
+2026-01-06,Chole Bhature,North Indian,17,160,2720,765,1955
+2026-01-06,Palak Paneer,North Indian,16,260,4160,1280,2880
+2026-01-06,Aloo Paratha,North Indian,27,80,2160,675,1485
+2026-01-06,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-06,Veg Biryani,North Indian,29,200,5800,1740,4060
+2026-01-06,Mixed Veg Curry,North Indian,6,180,1080,420,660
+2026-01-06,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-06,Butter Naan,North Indian,16,50,800,240,560
+2026-01-06,Roti,North Indian,29,25,725,232,493
+2026-01-06,Jeera Rice,North Indian,15,120,1800,525,1275
+2026-01-07,Masala Dosa,South Indian,22,120,2640,770,1870
+2026-01-07,Plain Dosa,South Indian,31,80,2480,620,1860
+2026-01-07,Idli Sambar (4 pcs),South Indian,26,70,1820,468,1352
+2026-01-07,Medu Vada (2 pcs),South Indian,10,60,600,150,450
+2026-01-07,Uttapam,South Indian,17,100,1700,476,1224
+2026-01-07,Pongal,South Indian,3,90,270,75,195
+2026-01-07,Rava Dosa,South Indian,12,110,1320,360,960
+2026-01-07,Set Dosa (3 pcs),South Indian,8,90,720,320,400
+2026-01-07,Paneer Butter Masala,North Indian,34,280,9520,2890,6630
+2026-01-07,Dal Makhani,North Indian,16,220,3520,880,2640
+2026-01-07,Chole Bhature,North Indian,27,160,4320,1215,3105
+2026-01-07,Palak Paneer,North Indian,13,260,3380,1040,2340
+2026-01-07,Aloo Paratha,North Indian,19,80,1520,475,1045
+2026-01-07,Kadai Paneer,North Indian,16,270,4320,1440,2880
+2026-01-07,Veg Biryani,North Indian,15,200,3000,900,2100
+2026-01-07,Mixed Veg Curry,North Indian,7,180,1260,490,770
+2026-01-07,Malai Kofta,North Indian,8,290,2320,800,1520
+2026-01-07,Butter Naan,North Indian,20,50,1000,300,700
+2026-01-07,Roti,North Indian,20,25,500,160,340
+2026-01-07,Jeera Rice,North Indian,14,120,1680,490,1190
+2026-01-08,Masala Dosa,South Indian,30,120,3600,1050,2550
+2026-01-08,Plain Dosa,South Indian,18,80,1440,360,1080
+2026-01-08,Idli Sambar (4 pcs),South Indian,25,70,1750,450,1300
+2026-01-08,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-08,Uttapam,South Indian,14,100,1400,392,1008
+2026-01-08,Pongal,South Indian,3,90,270,75,195
+2026-01-08,Rava Dosa,South Indian,14,110,1540,420,1120
+2026-01-08,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-08,Paneer Butter Masala,North Indian,33,280,9240,2805,6435
+2026-01-08,Dal Makhani,North Indian,22,220,4840,1210,3630
+2026-01-08,Chole Bhature,North Indian,19,160,3040,855,2185
+2026-01-08,Palak Paneer,North Indian,11,260,2860,880,1980
+2026-01-08,Aloo Paratha,North Indian,20,80,1600,500,1100
+2026-01-08,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-08,Veg Biryani,North Indian,34,200,6800,2040,4760
+2026-01-08,Mixed Veg Curry,North Indian,6,180,1080,420,660
+2026-01-08,Malai Kofta,North Indian,5,290,1450,500,950
+2026-01-08,Butter Naan,North Indian,18,50,900,270,630
+2026-01-08,Roti,North Indian,29,25,725,232,493
+2026-01-08,Jeera Rice,North Indian,13,120,1560,455,1105
+2026-01-09,Masala Dosa,South Indian,31,120,3720,1085,2635
+2026-01-09,Plain Dosa,South Indian,20,80,1600,400,1200
+2026-01-09,Idli Sambar (4 pcs),South Indian,33,70,2310,594,1716
+2026-01-09,Medu Vada (2 pcs),South Indian,16,60,960,240,720
+2026-01-09,Uttapam,South Indian,9,100,900,252,648
+2026-01-09,Pongal,South Indian,9,90,810,225,585
+2026-01-09,Rava Dosa,South Indian,15,110,1650,450,1200
+2026-01-09,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-09,Paneer Butter Masala,North Indian,33,280,9240,2805,6435
+2026-01-09,Dal Makhani,North Indian,27,220,5940,1485,4455
+2026-01-09,Chole Bhature,North Indian,26,160,4160,1170,2990
+2026-01-09,Palak Paneer,North Indian,12,260,3120,960,2160
+2026-01-09,Aloo Paratha,North Indian,20,80,1600,500,1100
+2026-01-09,Kadai Paneer,North Indian,17,270,4590,1530,3060
+2026-01-09,Veg Biryani,North Indian,18,200,3600,1080,2520
+2026-01-09,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-09,Malai Kofta,North Indian,6,290,1740,600,1140
+2026-01-09,Butter Naan,North Indian,15,50,750,225,525
+2026-01-09,Roti,North Indian,34,25,850,272,578
+2026-01-09,Jeera Rice,North Indian,8,120,960,280,680
+2026-01-10,Masala Dosa,South Indian,36,120,4320,1260,3060
+2026-01-10,Plain Dosa,South Indian,40,80,3200,800,2400
+2026-01-10,Idli Sambar (4 pcs),South Indian,21,70,1470,378,1092
+2026-01-10,Medu Vada (2 pcs),South Indian,23,60,1380,345,1035
+2026-01-10,Uttapam,South Indian,18,100,1800,504,1296
+2026-01-10,Pongal,South Indian,9,90,810,225,585
+2026-01-10,Rava Dosa,South Indian,15,110,1650,450,1200
+2026-01-10,Set Dosa (3 pcs),South Indian,9,90,810,360,450
+2026-01-10,Paneer Butter Masala,North Indian,35,280,9800,2975,6825
+2026-01-10,Dal Makhani,North Indian,23,220,5060,1265,3795
+2026-01-10,Chole Bhature,North Indian,21,160,3360,945,2415
+2026-01-10,Palak Paneer,North Indian,18,260,4680,1440,3240
+2026-01-10,Aloo Paratha,North Indian,44,80,3520,1100,2420
+2026-01-10,Kadai Paneer,North Indian,21,270,5670,1890,3780
+2026-01-10,Veg Biryani,North Indian,33,200,6600,1980,4620
+2026-01-10,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-10,Malai Kofta,North Indian,12,290,3480,1200,2280
+2026-01-10,Butter Naan,North Indian,33,50,1650,495,1155
+2026-01-10,Roti,North Indian,36,25,900,288,612
+2026-01-10,Jeera Rice,North Indian,12,120,1440,420,1020
+2026-01-11,Masala Dosa,South Indian,37,120,4440,1295,3145
+2026-01-11,Plain Dosa,South Indian,30,80,2400,600,1800
+2026-01-11,Idli Sambar (4 pcs),South Indian,22,70,1540,396,1144
+2026-01-11,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-11,Uttapam,South Indian,11,100,1100,308,792
+2026-01-11,Pongal,South Indian,12,90,1080,300,780
+2026-01-11,Rava Dosa,South Indian,16,110,1760,480,1280
+2026-01-11,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-11,Paneer Butter Masala,North Indian,43,280,12040,3655,8385
+2026-01-11,Dal Makhani,North Indian,32,220,7040,1760,5280
+2026-01-11,Chole Bhature,North Indian,35,160,5600,1575,4025
+2026-01-11,Palak Paneer,North Indian,21,260,5460,1680,3780
+2026-01-11,Aloo Paratha,North Indian,28,80,2240,700,1540
+2026-01-11,Kadai Paneer,North Indian,19,270,5130,1710,3420
+2026-01-11,Veg Biryani,North Indian,23,200,4600,1380,3220
+2026-01-11,Mixed Veg Curry,North Indian,11,180,1980,770,1210
+2026-01-11,Malai Kofta,North Indian,12,290,3480,1200,2280
+2026-01-11,Butter Naan,North Indian,43,50,2150,645,1505
+2026-01-11,Roti,North Indian,26,25,650,208,442
+2026-01-11,Jeera Rice,North Indian,12,120,1440,420,1020
+2026-01-12,Masala Dosa,South Indian,28,120,3360,980,2380
+2026-01-12,Plain Dosa,South Indian,25,80,2000,500,1500
+2026-01-12,Idli Sambar (4 pcs),South Indian,23,70,1610,414,1196
+2026-01-12,Medu Vada (2 pcs),South Indian,9,60,540,135,405
+2026-01-12,Uttapam,South Indian,10,100,1000,280,720
+2026-01-12,Pongal,South Indian,5,90,450,125,325
+2026-01-12,Rava Dosa,South Indian,8,110,880,240,640
+2026-01-12,Set Dosa (3 pcs),South Indian,8,90,720,320,400
+2026-01-12,Paneer Butter Masala,North Indian,22,280,6160,1870,4290
+2026-01-12,Dal Makhani,North Indian,25,220,5500,1375,4125
+2026-01-12,Chole Bhature,North Indian,23,160,3680,1035,2645
+2026-01-12,Palak Paneer,North Indian,12,260,3120,960,2160
+2026-01-12,Aloo Paratha,North Indian,28,80,2240,700,1540
+2026-01-12,Kadai Paneer,North Indian,10,270,2700,900,1800
+2026-01-12,Veg Biryani,North Indian,19,200,3800,1140,2660
+2026-01-12,Mixed Veg Curry,North Indian,7,180,1260,490,770
+2026-01-12,Malai Kofta,North Indian,5,290,1450,500,950
+2026-01-12,Butter Naan,North Indian,28,50,1400,420,980
+2026-01-12,Roti,North Indian,18,25,450,144,306
+2026-01-12,Jeera Rice,North Indian,16,120,1920,560,1360
+2026-01-13,Masala Dosa,South Indian,27,120,3240,945,2295
+2026-01-13,Plain Dosa,South Indian,24,80,1920,480,1440
+2026-01-13,Idli Sambar (4 pcs),South Indian,32,70,2240,576,1664
+2026-01-13,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-13,Uttapam,South Indian,15,100,1500,420,1080
+2026-01-13,Pongal,South Indian,9,90,810,225,585
+2026-01-13,Rava Dosa,South Indian,15,110,1650,450,1200
+2026-01-13,Set Dosa (3 pcs),South Indian,8,90,720,320,400
+2026-01-13,Paneer Butter Masala,North Indian,33,280,9240,2805,6435
+2026-01-13,Dal Makhani,North Indian,20,220,4400,1100,3300
+2026-01-13,Chole Bhature,North Indian,15,160,2400,675,1725
+2026-01-13,Palak Paneer,North Indian,14,260,3640,1120,2520
+2026-01-13,Aloo Paratha,North Indian,29,80,2320,725,1595
+2026-01-13,Kadai Paneer,North Indian,8,270,2160,720,1440
+2026-01-13,Veg Biryani,North Indian,31,200,6200,1860,4340
+2026-01-13,Mixed Veg Curry,North Indian,3,180,540,210,330
+2026-01-13,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-13,Butter Naan,North Indian,16,50,800,240,560
+2026-01-13,Roti,North Indian,28,25,700,224,476
+2026-01-13,Jeera Rice,North Indian,12,120,1440,420,1020
+2026-01-14,Masala Dosa,South Indian,22,120,2640,770,1870
+2026-01-14,Plain Dosa,South Indian,22,80,1760,440,1320
+2026-01-14,Idli Sambar (4 pcs),South Indian,33,70,2310,594,1716
+2026-01-14,Medu Vada (2 pcs),South Indian,14,60,840,210,630
+2026-01-14,Uttapam,South Indian,10,100,1000,280,720
+2026-01-14,Pongal,South Indian,8,90,720,200,520
+2026-01-14,Rava Dosa,South Indian,13,110,1430,390,1040
+2026-01-14,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-14,Paneer Butter Masala,North Indian,21,280,5880,1785,4095
+2026-01-14,Dal Makhani,North Indian,33,220,7260,1815,5445
+2026-01-14,Chole Bhature,North Indian,22,160,3520,990,2530
+2026-01-14,Palak Paneer,North Indian,17,260,4420,1360,3060
+2026-01-14,Aloo Paratha,North Indian,34,80,2720,850,1870
+2026-01-14,Kadai Paneer,North Indian,8,270,2160,720,1440
+2026-01-14,Veg Biryani,North Indian,34,200,6800,2040,4760
+2026-01-14,Mixed Veg Curry,North Indian,8,180,1440,560,880
+2026-01-14,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-14,Butter Naan,North Indian,18,50,900,270,630
+2026-01-14,Roti,North Indian,20,25,500,160,340
+2026-01-14,Jeera Rice,North Indian,16,120,1920,560,1360
+2026-01-15,Masala Dosa,South Indian,15,120,1800,525,1275
+2026-01-15,Plain Dosa,South Indian,19,80,1520,380,1140
+2026-01-15,Idli Sambar (4 pcs),South Indian,15,70,1050,270,780
+2026-01-15,Medu Vada (2 pcs),South Indian,11,60,660,165,495
+2026-01-15,Uttapam,South Indian,13,100,1300,364,936
+2026-01-15,Pongal,South Indian,4,90,360,100,260
+2026-01-15,Rava Dosa,South Indian,17,110,1870,510,1360
+2026-01-15,Set Dosa (3 pcs),South Indian,7,90,630,280,350
+2026-01-15,Paneer Butter Masala,North Indian,24,280,6720,2040,4680
+2026-01-15,Dal Makhani,North Indian,15,220,3300,825,2475
+2026-01-15,Chole Bhature,North Indian,20,160,3200,900,2300
+2026-01-15,Palak Paneer,North Indian,11,260,2860,880,1980
+2026-01-15,Aloo Paratha,North Indian,27,80,2160,675,1485
+2026-01-15,Kadai Paneer,North Indian,15,270,4050,1350,2700
+2026-01-15,Veg Biryani,North Indian,34,200,6800,2040,4760
+2026-01-15,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-15,Malai Kofta,North Indian,7,290,2030,700,1330
+2026-01-15,Butter Naan,North Indian,22,50,1100,330,770
+2026-01-15,Roti,North Indian,19,25,475,152,323
+2026-01-15,Jeera Rice,North Indian,11,120,1320,385,935
+2026-01-16,Masala Dosa,South Indian,26,120,3120,910,2210
+2026-01-16,Plain Dosa,South Indian,27,80,2160,540,1620
+2026-01-16,Idli Sambar (4 pcs),South Indian,16,70,1120,288,832
+2026-01-16,Medu Vada (2 pcs),South Indian,10,60,600,150,450
+2026-01-16,Uttapam,South Indian,10,100,1000,280,720
+2026-01-16,Pongal,South Indian,6,90,540,150,390
+2026-01-16,Rava Dosa,South Indian,11,110,1210,330,880
+2026-01-16,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-16,Paneer Butter Masala,North Indian,25,280,7000,2125,4875
+2026-01-16,Dal Makhani,North Indian,19,220,4180,1045,3135
+2026-01-16,Chole Bhature,North Indian,34,160,5440,1530,3910
+2026-01-16,Palak Paneer,North Indian,17,260,4420,1360,3060
+2026-01-16,Aloo Paratha,North Indian,22,80,1760,550,1210
+2026-01-16,Kadai Paneer,North Indian,13,270,3510,1170,2340
+2026-01-16,Veg Biryani,North Indian,20,200,4000,1200,2800
+2026-01-16,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-16,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-16,Butter Naan,North Indian,28,50,1400,420,980
+2026-01-16,Roti,North Indian,25,25,625,200,425
+2026-01-16,Jeera Rice,North Indian,17,120,2040,595,1445
+2026-01-17,Masala Dosa,South Indian,37,120,4440,1295,3145
+2026-01-17,Plain Dosa,South Indian,30,80,2400,600,1800
+2026-01-17,Idli Sambar (4 pcs),South Indian,44,70,3080,792,2288
+2026-01-17,Medu Vada (2 pcs),South Indian,22,60,1320,330,990
+2026-01-17,Uttapam,South Indian,11,100,1100,308,792
+2026-01-17,Pongal,South Indian,12,90,1080,300,780
+2026-01-17,Rava Dosa,South Indian,21,110,2310,630,1680
+2026-01-17,Set Dosa (3 pcs),South Indian,8,90,720,320,400
+2026-01-17,Paneer Butter Masala,North Indian,35,280,9800,2975,6825
+2026-01-17,Dal Makhani,North Indian,36,220,7920,1980,5940
+2026-01-17,Chole Bhature,North Indian,36,160,5760,1620,4140
+2026-01-17,Palak Paneer,North Indian,15,260,3900,1200,2700
+2026-01-17,Aloo Paratha,North Indian,42,80,3360,1050,2310
+2026-01-17,Kadai Paneer,North Indian,15,270,4050,1350,2700
+2026-01-17,Veg Biryani,North Indian,26,200,5200,1560,3640
+2026-01-17,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-17,Malai Kofta,North Indian,12,290,3480,1200,2280
+2026-01-17,Butter Naan,North Indian,33,50,1650,495,1155
+2026-01-17,Roti,North Indian,43,25,1075,344,731
+2026-01-17,Jeera Rice,North Indian,23,120,2760,805,1955
+2026-01-18,Masala Dosa,South Indian,32,120,3840,1120,2720
+2026-01-18,Plain Dosa,South Indian,46,80,3680,920,2760
+2026-01-18,Idli Sambar (4 pcs),South Indian,39,70,2730,702,2028
+2026-01-18,Medu Vada (2 pcs),South Indian,21,60,1260,315,945
+2026-01-18,Uttapam,South Indian,22,100,2200,616,1584
+2026-01-18,Pongal,South Indian,11,90,990,275,715
+2026-01-18,Rava Dosa,South Indian,19,110,2090,570,1520
+2026-01-18,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-18,Paneer Butter Masala,North Indian,39,280,10920,3315,7605
+2026-01-18,Dal Makhani,North Indian,26,220,5720,1430,4290
+2026-01-18,Chole Bhature,North Indian,39,160,6240,1755,4485
+2026-01-18,Palak Paneer,North Indian,15,260,3900,1200,2700
+2026-01-18,Aloo Paratha,North Indian,21,80,1680,525,1155
+2026-01-18,Kadai Paneer,North Indian,18,270,4860,1620,3240
+2026-01-18,Veg Biryani,North Indian,46,200,9200,2760,6440
+2026-01-18,Mixed Veg Curry,North Indian,12,180,2160,840,1320
+2026-01-18,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-18,Butter Naan,North Indian,40,50,2000,600,1400
+2026-01-18,Roti,North Indian,32,25,800,256,544
+2026-01-18,Jeera Rice,North Indian,16,120,1920,560,1360
+2026-01-19,Masala Dosa,South Indian,23,120,2760,805,1955
+2026-01-19,Plain Dosa,South Indian,24,80,1920,480,1440
+2026-01-19,Idli Sambar (4 pcs),South Indian,34,70,2380,612,1768
+2026-01-19,Medu Vada (2 pcs),South Indian,16,60,960,240,720
+2026-01-19,Uttapam,South Indian,12,100,1200,336,864
+2026-01-19,Pongal,South Indian,4,90,360,100,260
+2026-01-19,Rava Dosa,South Indian,16,110,1760,480,1280
+2026-01-19,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-19,Paneer Butter Masala,North Indian,34,280,9520,2890,6630
+2026-01-19,Dal Makhani,North Indian,25,220,5500,1375,4125
+2026-01-19,Chole Bhature,North Indian,20,160,3200,900,2300
+2026-01-19,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-19,Aloo Paratha,North Indian,21,80,1680,525,1155
+2026-01-19,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-19,Veg Biryani,North Indian,16,200,3200,960,2240
+2026-01-19,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-19,Malai Kofta,North Indian,3,290,870,300,570
+2026-01-19,Butter Naan,North Indian,25,50,1250,375,875
+2026-01-19,Roti,North Indian,26,25,650,208,442
+2026-01-19,Jeera Rice,North Indian,10,120,1200,350,850
+2026-01-20,Masala Dosa,South Indian,21,120,2520,735,1785
+2026-01-20,Plain Dosa,South Indian,34,80,2720,680,2040
+2026-01-20,Idli Sambar (4 pcs),South Indian,20,70,1400,360,1040
+2026-01-20,Medu Vada (2 pcs),South Indian,12,60,720,180,540
+2026-01-20,Uttapam,South Indian,15,100,1500,420,1080
+2026-01-20,Pongal,South Indian,3,90,270,75,195
+2026-01-20,Rava Dosa,South Indian,8,110,880,240,640
+2026-01-20,Set Dosa (3 pcs),South Indian,7,90,630,280,350
+2026-01-20,Paneer Butter Masala,North Indian,25,280,7000,2125,4875
+2026-01-20,Dal Makhani,North Indian,32,220,7040,1760,5280
+2026-01-20,Chole Bhature,North Indian,31,160,4960,1395,3565
+2026-01-20,Palak Paneer,North Indian,14,260,3640,1120,2520
+2026-01-20,Aloo Paratha,North Indian,31,80,2480,775,1705
+2026-01-20,Kadai Paneer,North Indian,11,270,2970,990,1980
+2026-01-20,Veg Biryani,North Indian,23,200,4600,1380,3220
+2026-01-20,Mixed Veg Curry,North Indian,3,180,540,210,330
+2026-01-20,Malai Kofta,North Indian,6,290,1740,600,1140
+2026-01-20,Butter Naan,North Indian,22,50,1100,330,770
+2026-01-20,Roti,North Indian,31,25,775,248,527
+2026-01-20,Jeera Rice,North Indian,14,120,1680,490,1190
+2026-01-21,Masala Dosa,South Indian,15,120,1800,525,1275
+2026-01-21,Plain Dosa,South Indian,27,80,2160,540,1620
+2026-01-21,Idli Sambar (4 pcs),South Indian,33,70,2310,594,1716
+2026-01-21,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-21,Uttapam,South Indian,10,100,1000,280,720
+2026-01-21,Pongal,South Indian,8,90,720,200,520
+2026-01-21,Rava Dosa,South Indian,8,110,880,240,640
+2026-01-21,Set Dosa (3 pcs),South Indian,7,90,630,280,350
+2026-01-21,Paneer Butter Masala,North Indian,30,280,8400,2550,5850
+2026-01-21,Dal Makhani,North Indian,22,220,4840,1210,3630
+2026-01-21,Chole Bhature,North Indian,33,160,5280,1485,3795
+2026-01-21,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-21,Aloo Paratha,North Indian,15,80,1200,375,825
+2026-01-21,Kadai Paneer,North Indian,10,270,2700,900,1800
+2026-01-21,Veg Biryani,North Indian,29,200,5800,1740,4060
+2026-01-21,Mixed Veg Curry,North Indian,4,180,720,280,440
+2026-01-21,Malai Kofta,North Indian,4,290,1160,400,760
+2026-01-21,Butter Naan,North Indian,31,50,1550,465,1085
+2026-01-21,Roti,North Indian,32,25,800,256,544
+2026-01-21,Jeera Rice,North Indian,13,120,1560,455,1105
+2026-01-22,Masala Dosa,South Indian,33,120,3960,1155,2805
+2026-01-22,Plain Dosa,South Indian,18,80,1440,360,1080
+2026-01-22,Idli Sambar (4 pcs),South Indian,15,70,1050,270,780
+2026-01-22,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-22,Uttapam,South Indian,14,100,1400,392,1008
+2026-01-22,Pongal,South Indian,9,90,810,225,585
+2026-01-22,Rava Dosa,South Indian,10,110,1100,300,800
+2026-01-22,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-22,Paneer Butter Masala,North Indian,24,280,6720,2040,4680
+2026-01-22,Dal Makhani,North Indian,33,220,7260,1815,5445
+2026-01-22,Chole Bhature,North Indian,28,160,4480,1260,3220
+2026-01-22,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-22,Aloo Paratha,North Indian,15,80,1200,375,825
+2026-01-22,Kadai Paneer,North Indian,14,270,3780,1260,2520
+2026-01-22,Veg Biryani,North Indian,32,200,6400,1920,4480
+2026-01-22,Mixed Veg Curry,North Indian,9,180,1620,630,990
+2026-01-22,Malai Kofta,North Indian,7,290,2030,700,1330
+2026-01-22,Butter Naan,North Indian,22,50,1100,330,770
+2026-01-22,Roti,North Indian,15,25,375,120,255
+2026-01-22,Jeera Rice,North Indian,16,120,1920,560,1360
+2026-01-23,Masala Dosa,South Indian,17,120,2040,595,1445
+2026-01-23,Plain Dosa,South Indian,22,80,1760,440,1320
+2026-01-23,Idli Sambar (4 pcs),South Indian,29,70,2030,522,1508
+2026-01-23,Medu Vada (2 pcs),South Indian,12,60,720,180,540
+2026-01-23,Uttapam,South Indian,10,100,1000,280,720
+2026-01-23,Pongal,South Indian,5,90,450,125,325
+2026-01-23,Rava Dosa,South Indian,8,110,880,240,640
+2026-01-23,Set Dosa (3 pcs),South Indian,6,90,540,240,300
+2026-01-23,Paneer Butter Masala,North Indian,29,280,8120,2465,5655
+2026-01-23,Dal Makhani,North Indian,22,220,4840,1210,3630
+2026-01-23,Chole Bhature,North Indian,16,160,2560,720,1840
+2026-01-23,Palak Paneer,North Indian,10,260,2600,800,1800
+2026-01-23,Aloo Paratha,North Indian,28,80,2240,700,1540
+2026-01-23,Kadai Paneer,North Indian,15,270,4050,1350,2700
+2026-01-23,Veg Biryani,North Indian,28,200,5600,1680,3920
+2026-01-23,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-23,Malai Kofta,North Indian,6,290,1740,600,1140
+2026-01-23,Butter Naan,North Indian,34,50,1700,510,1190
+2026-01-23,Roti,North Indian,19,25,475,152,323
+2026-01-23,Jeera Rice,North Indian,13,120,1560,455,1105
+2026-01-24,Masala Dosa,South Indian,39,120,4680,1365,3315
+2026-01-24,Plain Dosa,South Indian,42,80,3360,840,2520
+2026-01-24,Idli Sambar (4 pcs),South Indian,44,70,3080,792,2288
+2026-01-24,Medu Vada (2 pcs),South Indian,19,60,1140,285,855
+2026-01-24,Uttapam,South Indian,23,100,2300,644,1656
+2026-01-24,Pongal,South Indian,12,90,1080,300,780
+2026-01-24,Rava Dosa,South Indian,11,110,1210,330,880
+2026-01-24,Set Dosa (3 pcs),South Indian,12,90,1080,480,600
+2026-01-24,Paneer Butter Masala,North Indian,46,280,12880,3910,8970
+2026-01-24,Dal Makhani,North Indian,42,220,9240,2310,6930
+2026-01-24,Chole Bhature,North Indian,46,160,7360,2070,5290
+2026-01-24,Palak Paneer,North Indian,15,260,3900,1200,2700
+2026-01-24,Aloo Paratha,North Indian,44,80,3520,1100,2420
+2026-01-24,Kadai Paneer,North Indian,12,270,3240,1080,2160
+2026-01-24,Veg Biryani,North Indian,21,200,4200,1260,2940
+2026-01-24,Mixed Veg Curry,North Indian,12,180,2160,840,1320
+2026-01-24,Malai Kofta,North Indian,9,290,2610,900,1710
+2026-01-24,Butter Naan,North Indian,47,50,2350,705,1645
+2026-01-24,Roti,North Indian,35,25,875,280,595
+2026-01-24,Jeera Rice,North Indian,23,120,2760,805,1955
+2026-01-25,Masala Dosa,South Indian,22,120,2640,770,1870
+2026-01-25,Plain Dosa,South Indian,23,80,1840,460,1380
+2026-01-25,Idli Sambar (4 pcs),South Indian,36,70,2520,648,1872
+2026-01-25,Medu Vada (2 pcs),South Indian,15,60,900,225,675
+2026-01-25,Uttapam,South Indian,16,100,1600,448,1152
+2026-01-25,Pongal,South Indian,9,90,810,225,585
+2026-01-25,Rava Dosa,South Indian,18,110,1980,540,1440
+2026-01-25,Set Dosa (3 pcs),South Indian,11,90,990,440,550
+2026-01-25,Paneer Butter Masala,North Indian,32,280,8960,2720,6240
+2026-01-25,Dal Makhani,North Indian,22,220,4840,1210,3630
+2026-01-25,Chole Bhature,North Indian,36,160,5760,1620,4140
+2026-01-25,Palak Paneer,North Indian,14,260,3640,1120,2520
+2026-01-25,Aloo Paratha,North Indian,47,80,3760,1175,2585
+2026-01-25,Kadai Paneer,North Indian,23,270,6210,2070,4140
+2026-01-25,Veg Biryani,North Indian,36,200,7200,2160,5040
+2026-01-25,Mixed Veg Curry,North Indian,4,180,720,280,440
+2026-01-25,Malai Kofta,North Indian,5,290,1450,500,950
+2026-01-25,Butter Naan,North Indian,39,50,1950,585,1365
+2026-01-25,Roti,North Indian,43,25,1075,344,731
+2026-01-25,Jeera Rice,North Indian,12,120,1440,420,1020
+2026-01-26,Masala Dosa,South Indian,33,120,3960,1155,2805
+2026-01-26,Plain Dosa,South Indian,31,80,2480,620,1860
+2026-01-26,Idli Sambar (4 pcs),South Indian,28,70,1960,504,1456
+2026-01-26,Medu Vada (2 pcs),South Indian,16,60,960,240,720
+2026-01-26,Uttapam,South Indian,15,100,1500,420,1080
+2026-01-26,Pongal,South Indian,4,90,360,100,260
+2026-01-26,Rava Dosa,South Indian,16,110,1760,480,1280
+2026-01-26,Set Dosa (3 pcs),South Indian,9,90,810,360,450
+2026-01-26,Paneer Butter Masala,North Indian,23,280,6440,1955,4485
+2026-01-26,Dal Makhani,North Indian,25,220,5500,1375,4125
+2026-01-26,Chole Bhature,North Indian,28,160,4480,1260,3220
+2026-01-26,Palak Paneer,North Indian,11,260,2860,880,1980
+2026-01-26,Aloo Paratha,North Indian,27,80,2160,675,1485
+2026-01-26,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-26,Veg Biryani,North Indian,19,200,3800,1140,2660
+2026-01-26,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-26,Malai Kofta,North Indian,8,290,2320,800,1520
+2026-01-26,Butter Naan,North Indian,32,50,1600,480,1120
+2026-01-26,Roti,North Indian,24,25,600,192,408
+2026-01-26,Jeera Rice,North Indian,11,120,1320,385,935
+2026-01-27,Masala Dosa,South Indian,23,120,2760,805,1955
+2026-01-27,Plain Dosa,South Indian,20,80,1600,400,1200
+2026-01-27,Idli Sambar (4 pcs),South Indian,16,70,1120,288,832
+2026-01-27,Medu Vada (2 pcs),South Indian,8,60,480,120,360
+2026-01-27,Uttapam,South Indian,12,100,1200,336,864
+2026-01-27,Pongal,South Indian,3,90,270,75,195
+2026-01-27,Rava Dosa,South Indian,13,110,1430,390,1040
+2026-01-27,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-27,Paneer Butter Masala,North Indian,26,280,7280,2210,5070
+2026-01-27,Dal Makhani,North Indian,24,220,5280,1320,3960
+2026-01-27,Chole Bhature,North Indian,20,160,3200,900,2300
+2026-01-27,Palak Paneer,North Indian,15,260,3900,1200,2700
+2026-01-27,Aloo Paratha,North Indian,16,80,1280,400,880
+2026-01-27,Kadai Paneer,North Indian,16,270,4320,1440,2880
+2026-01-27,Veg Biryani,North Indian,21,200,4200,1260,2940
+2026-01-27,Mixed Veg Curry,North Indian,4,180,720,280,440
+2026-01-27,Malai Kofta,North Indian,7,290,2030,700,1330
+2026-01-27,Butter Naan,North Indian,31,50,1550,465,1085
+2026-01-27,Roti,North Indian,28,25,700,224,476
+2026-01-27,Jeera Rice,North Indian,9,120,1080,315,765
+2026-01-28,Masala Dosa,South Indian,25,120,3000,875,2125
+2026-01-28,Plain Dosa,South Indian,15,80,1200,300,900
+2026-01-28,Idli Sambar (4 pcs),South Indian,33,70,2310,594,1716
+2026-01-28,Medu Vada (2 pcs),South Indian,12,60,720,180,540
+2026-01-28,Uttapam,South Indian,11,100,1100,308,792
+2026-01-28,Pongal,South Indian,5,90,450,125,325
+2026-01-28,Rava Dosa,South Indian,17,110,1870,510,1360
+2026-01-28,Set Dosa (3 pcs),South Indian,7,90,630,280,350
+2026-01-28,Paneer Butter Masala,North Indian,25,280,7000,2125,4875
+2026-01-28,Dal Makhani,North Indian,22,220,4840,1210,3630
+2026-01-28,Chole Bhature,North Indian,25,160,4000,1125,2875
+2026-01-28,Palak Paneer,North Indian,11,260,2860,880,1980
+2026-01-28,Aloo Paratha,North Indian,31,80,2480,775,1705
+2026-01-28,Kadai Paneer,North Indian,14,270,3780,1260,2520
+2026-01-28,Veg Biryani,North Indian,22,200,4400,1320,3080
+2026-01-28,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-28,Malai Kofta,North Indian,8,290,2320,800,1520
+2026-01-28,Butter Naan,North Indian,16,50,800,240,560
+2026-01-28,Roti,North Indian,29,25,725,232,493
+2026-01-28,Jeera Rice,North Indian,15,120,1800,525,1275
+2026-01-29,Masala Dosa,South Indian,19,120,2280,665,1615
+2026-01-29,Plain Dosa,South Indian,15,80,1200,300,900
+2026-01-29,Idli Sambar (4 pcs),South Indian,18,70,1260,324,936
+2026-01-29,Medu Vada (2 pcs),South Indian,11,60,660,165,495
+2026-01-29,Uttapam,South Indian,10,100,1000,280,720
+2026-01-29,Pongal,South Indian,5,90,450,125,325
+2026-01-29,Rava Dosa,South Indian,11,110,1210,330,880
+2026-01-29,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-29,Paneer Butter Masala,North Indian,31,280,8680,2635,6045
+2026-01-29,Dal Makhani,North Indian,27,220,5940,1485,4455
+2026-01-29,Chole Bhature,North Indian,25,160,4000,1125,2875
+2026-01-29,Palak Paneer,North Indian,9,260,2340,720,1620
+2026-01-29,Aloo Paratha,North Indian,23,80,1840,575,1265
+2026-01-29,Kadai Paneer,North Indian,17,270,4590,1530,3060
+2026-01-29,Veg Biryani,North Indian,16,200,3200,960,2240
+2026-01-29,Mixed Veg Curry,North Indian,7,180,1260,490,770
+2026-01-29,Malai Kofta,North Indian,3,290,870,300,570
+2026-01-29,Butter Naan,North Indian,23,50,1150,345,805
+2026-01-29,Roti,North Indian,22,25,550,176,374
+2026-01-29,Jeera Rice,North Indian,8,120,960,280,680
+2026-01-30,Masala Dosa,South Indian,15,120,1800,525,1275
+2026-01-30,Plain Dosa,South Indian,25,80,2000,500,1500
+2026-01-30,Idli Sambar (4 pcs),South Indian,22,70,1540,396,1144
+2026-01-30,Medu Vada (2 pcs),South Indian,17,60,1020,255,765
+2026-01-30,Uttapam,South Indian,16,100,1600,448,1152
+2026-01-30,Pongal,South Indian,9,90,810,225,585
+2026-01-30,Rava Dosa,South Indian,10,110,1100,300,800
+2026-01-30,Set Dosa (3 pcs),South Indian,5,90,450,200,250
+2026-01-30,Paneer Butter Masala,North Indian,32,280,8960,2720,6240
+2026-01-30,Dal Makhani,North Indian,19,220,4180,1045,3135
+2026-01-30,Chole Bhature,North Indian,26,160,4160,1170,2990
+2026-01-30,Palak Paneer,North Indian,10,260,2600,800,1800
+2026-01-30,Aloo Paratha,North Indian,20,80,1600,500,1100
+2026-01-30,Kadai Paneer,North Indian,9,270,2430,810,1620
+2026-01-30,Veg Biryani,North Indian,26,200,5200,1560,3640
+2026-01-30,Mixed Veg Curry,North Indian,5,180,900,350,550
+2026-01-30,Malai Kofta,North Indian,7,290,2030,700,1330
+2026-01-30,Butter Naan,North Indian,26,50,1300,390,910
+2026-01-30,Roti,North Indian,31,25,775,248,527
+2026-01-30,Jeera Rice,North Indian,8,120,960,280,680
+2026-01-31,Masala Dosa,South Indian,33,120,3960,1155,2805
+2026-01-31,Plain Dosa,South Indian,43,80,3440,860,2580
+2026-01-31,Idli Sambar (4 pcs),South Indian,40,70,2800,720,2080
+2026-01-31,Medu Vada (2 pcs),South Indian,21,60,1260,315,945
+2026-01-31,Uttapam,South Indian,14,100,1400,392,1008
+2026-01-31,Pongal,South Indian,12,90,1080,300,780
+2026-01-31,Rava Dosa,South Indian,16,110,1760,480,1280
+2026-01-31,Set Dosa (3 pcs),South Indian,4,90,360,160,200
+2026-01-31,Paneer Butter Masala,North Indian,26,280,7280,2210,5070
+2026-01-31,Dal Makhani,North Indian,42,220,9240,2310,6930
+2026-01-31,Chole Bhature,North Indian,28,160,4480,1260,3220
+2026-01-31,Palak Paneer,North Indian,21,260,5460,1680,3780
+2026-01-31,Aloo Paratha,North Indian,44,80,3520,1100,2420
+2026-01-31,Kadai Paneer,North Indian,22,270,5940,1980,3960
+2026-01-31,Veg Biryani,North Indian,36,200,7200,2160,5040
+2026-01-31,Mixed Veg Curry,North Indian,12,180,2160,840,1320
+2026-01-31,Malai Kofta,North Indian,7,290,2030,700,1330
+2026-01-31,Butter Naan,North Indian,32,50,1600,480,1120
+2026-01-31,Roti,North Indian,37,25,925,296,629
+2026-01-31,Jeera Rice,North Indian,23,120,2760,805,1955
