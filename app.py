@@ -9,8 +9,7 @@ import pandas as pd
 import os
 from datetime import datetime
 
-from database import init_db, migrate_db, verify_user, get_inventory, add_item, remove_item, get_transactions, get_inventory_summary, manager_add_item, manager_update_item, manager_delete_item, cleanup_old_transactions, get_categories, add_category, update_category, delete_category, get_low_stock_items
-
+from database import init_db, migrate_db, verify_user, get_inventory, add_item, remove_item, get_transactions, get_inventory_summary, manager_add_item, manager_update_item, manager_delete_item, cleanup_old_transactions, get_categories, add_category, update_category, delete_category
 app = Flask(__name__)
 app.secret_key = 'store_management_secret_key_2024'
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -685,3 +684,4 @@ if __name__ == '__main__':
     print("    - kitchen_manager / kitchen123 (Remove Items)")
     print("="*60 + "\n")
     app.run(debug=True, port=5001, host='0.0.0.0')
+
