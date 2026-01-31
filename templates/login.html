@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bhagath Store Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Bhagat Logo" style="width: 120px; height: 120px; margin-bottom: 1rem;">
+                <h1 style="color: #FFD700;">Bhagath Store Management</h1>
+                <p>Hotel & Restaurant Inventory System</p>
+            </div>
+            
+            {% if error %}
+            <div class="alert alert-error">
+                <span>⚠️</span>
+                <span>{{ error }}</span>
+            </div>
+            {% endif %}
+            
+            <form id="loginForm" method="POST">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-input" placeholder="Enter your username" required autofocus>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
+                    <span>Sign In</span>
+                    <span>→</span>
+                </button>
+            </form>
+            
+            <div style="margin-top: 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+                <p style="margin-bottom: 0.5rem;">Available Users:</p>
+                <p>👤 manager • 📦 purchase_manager • 🍳 kitchen_manager</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading">Signing in...</span>';
+            
+            const formData = new FormData(this);
+            const data = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+            
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    window.location.href = result.redirect;
+                } else {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>Sign In</span><span>→</span>';
+                    
+                    let alertDiv = document.querySelector('.alert');
+                    if (!alertDiv) {
+                        alertDiv = document.createElement('div');
+                        alertDiv.className = 'alert alert-error';
+                        document.querySelector('.login-header').after(alertDiv);
+                    }
+                    alertDiv.innerHTML = `<span>⚠️</span><span>${result.error}</span>`;
+                }
+            } catch (error) {
+                btn.disabled = false;
+                btn.innerHTML = '<span>Sign In</span><span>→</span>';
+                console.error('Login error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

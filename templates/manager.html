@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard - Bhagath Store Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .category-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        .category-card.active {
+            border: 2px solid var(--accent-primary);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+        }
+        .transactions-mini {
+            font-size: 0.85rem;
+        }
+        .transactions-mini th, .transactions-mini td {
+            padding: 0.5rem 0.75rem;
+        }
+        .inventory-section {
+            min-height: 300px;
+        }
+        .activity-filter.active {
+            background: var(--accent-primary) !important;
+            color: white !important;
+        }
+        /* Category Badge Colors */
+        .badge-beverages { background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid #06b6d4; }
+        .badge-bread { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid #f59e0b; }
+        .badge-dairy { background: rgba(59, 130, 246, 0.2); color: #3b82f6; border: 1px solid #3b82f6; }
+        .badge-desserts { background: rgba(236, 72, 153, 0.2); color: #ec4899; border: 1px solid #ec4899; }
+        .badge-frozen { background: rgba(14, 165, 233, 0.2); color: #0ea5e9; border: 1px solid #0ea5e9; }
+        .badge-fruits { background: rgba(249, 115, 22, 0.2); color: #f97316; border: 1px solid #f97316; }
+        .badge-grocery { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; border: 1px solid #8b5cf6; }
+        .badge-sauce { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+        .badge-vegetable { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+        .badge-default { background: rgba(107, 114, 128, 0.2); color: #6b7280; border: 1px solid #6b7280; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Bhagat Logo" style="width: 50px; height: 50px; border-radius: 8px;">
+                <span class="header-title">Bhagath Store Management</span>
+                <span class="header-role">Manager View</span>
+            </div>
+            <div class="header-right">
+                <div class="current-time" id="currentTime"></div>
+                <div class="header-user">
+                    <div class="header-avatar">{{ username[0].upper() }}</div>
+                    <span>{{ username }}</span>
+                </div>
+                <a href="/logout" class="btn btn-secondary btn-logout">Logout</a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>📊 Store Inventory Report</h1>
+                <p>Click on any category below to view its items</p>
+            </div>
+
+            <!-- Category Summary - Clickable -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">📦 Categories</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn btn-primary" onclick="openCategoryModal()">⚙️ Manage</button>
+                        <button class="btn btn-secondary" id="showAllBtn" onclick="showAllItems()">Show All Items</button>
+                    </div>
+                </div>
+                <div class="stats-grid" id="categoryStats">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- Inventory Items - Main Focus -->
+                <div class="card inventory-section">
+                    <div class="card-header" style="flex-wrap: wrap; gap: 0.5rem;">
+                        <h3 class="card-title" id="inventoryTitle">📋 All Items</h3>
+                        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" id="searchInput" class="form-input" placeholder="🔍 Search items..." style="width: 180px; padding: 0.5rem 0.75rem;" oninput="filterInventory()">
+                            <span class="badge badge-purchase" id="itemCount">0 items</span>
+                            <button class="btn btn-primary" onclick="openAddModal()">➕ Add Item</button>
+                        </div>
+                    </div>
+                    <div id="alertContainer"></div>
+                    <div class="table-container" style="max-height: 600px; overflow-y: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTable">
+                                <tr><td colspan="5" class="loading">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions - Smaller -->
+                <div class="card">
+                    <div class="card-header" style="flex-wrap: wrap; gap: 0.5rem;">
+                        <h3 class="card-title">📋 Recent Activity <small style="font-size: 0.7rem; color: var(--text-muted);">(Last 30 days)</small></h3>
+                        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+                            <input type="date" id="fromDateFilter" class="form-input" style="width: 130px; padding: 0.4rem;" onchange="loadTransactions()" title="From Date">
+                            <span style="color: var(--text-muted);">to</span>
+                            <input type="date" id="toDateFilter" class="form-input" style="width: 130px; padding: 0.4rem;" onchange="loadTransactions()" title="To Date">
+                            <button class="btn btn-secondary activity-filter active" id="filterAll" onclick="filterTransactions('')">All</button>
+                            <button class="btn btn-secondary activity-filter" id="filterIn" onclick="filterTransactions('purchase')">📥 In</button>
+                            <button class="btn btn-secondary activity-filter" id="filterOut" onclick="filterTransactions('kitchen')">📤 Out</button>
+                            <button class="btn btn-primary" onclick="exportManagerTransactions()" title="Export to Excel">📥 Export</button>
+                        </div>
+                    </div>
+                    <div class="table-container transactions-mini" style="max-height: 400px; overflow-y: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Item</th>
+                                    <th>Qty</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactionsTable">
+                                <tr><td colspan="4" class="loading">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Item -->
+    <div id="itemModal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Item</h3>
+                <button class="btn btn-secondary" onclick="closeModal()">✕</button>
+            </div>
+            <form id="itemForm">
+                <input type="hidden" id="originalName" value="">
+                <div class="form-group">
+                    <label class="form-label">Item Name</label>
+                    <input type="text" id="itemName" class="form-input" placeholder="e.g., Rice" required list="existingItemsList">
+                    <datalist id="existingItemsList"></datalist>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="itemCategory" class="form-select" required>
+                        <option value="">Select category...</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Bread">Bread</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Frozen Foods">Frozen Foods</option>
+                        <option value="Fruits">Fruits</option>
+                        <option value="Grocery">Grocery</option>
+                        <option value="Sauce">Sauce</option>
+                        <option value="Vegetable">Vegetable</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" id="itemQuantity" class="form-input" placeholder="0" step="0.1" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Unit</label>
+                        <select id="itemUnit" class="form-select">
+                            <option value="BTL">BTL</option>
+                            <option value="KG">KG</option>
+                            <option value="LTR">LTR</option>
+                            <option value="NOS">NOS</option>
+                            <option value="PCS">PCS</option>
+                            <option value="PKT">PKT</option>
+                            <option value="TIN">TIN</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary btn-full" id="saveBtn">💾 Save Item</button>
+                    <button type="button" class="btn btn-secondary btn-full" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Category Management -->
+    <div id="categoryModal" class="modal" style="display: none;">
+        <div class="modal-overlay" onclick="closeCategoryModal()"></div>
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>⚙️ Manage Categories</h3>
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">✕</button>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="newCategoryName" class="form-input" placeholder="New category name" style="flex: 1;">
+                    <input type="text" id="newCategoryIcon" class="form-input" placeholder="📦" style="width: 60px; text-align: center;" value="📦">
+                    <button class="btn btn-success" onclick="addNewCategory()">➕ Add</button>
+                </div>
+            </div>
+            <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTable">
+                        <tr><td colspan="3" class="loading">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--shadow-glow);
+            animation: fadeInUp 0.3s ease-out;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .action-btns {
+            display: flex;
+            gap: 0.25rem;
+        }
+        .action-btns button {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+        }
+    </style>
+
+    <script>
+        // Store all inventory data
+        let allInventory = [];
+        let currentCategory = null;
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('en-IN', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit'
+            });
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Get category badge class
+        function getCategoryBadge(category) {
+            const cat = category.toLowerCase();
+            if (cat === 'beverages') return 'badge-beverages';
+            if (cat === 'bread') return 'badge-bread';
+            if (cat === 'dairy') return 'badge-dairy';
+            if (cat === 'desserts') return 'badge-desserts';
+            if (cat === 'frozen foods') return 'badge-frozen';
+            if (cat === 'fruits') return 'badge-fruits';
+            if (cat === 'grocery') return 'badge-grocery';
+            if (cat === 'sauce') return 'badge-sauce';
+            if (cat === 'vegetable') return 'badge-vegetable';
+            return 'badge-default';
+        }
+
+        // Filter inventory by category
+        function filterByCategory(category) {
+            currentCategory = category;
+            updateInventoryDisplay();
+            
+            // Update active state on category cards
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`)?.classList.add('active');
+        }
+
+        // Show all items
+        function showAllItems() {
+            currentCategory = null;
+            updateInventoryDisplay();
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+            });
+        }
+
+        // Update inventory display based on filter
+        function updateInventoryDisplay() {
+            const tbody = document.getElementById('inventoryTable');
+            const title = document.getElementById('inventoryTitle');
+            const countBadge = document.getElementById('itemCount');
+            const searchTerm = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+            
+            // Show only items that are available (quantity > 0)
+            let itemsToShow = allInventory.filter(i => i.quantity > 0);
+            
+            // Filter by category
+            if (currentCategory) {
+                itemsToShow = itemsToShow.filter(i => i.category.toLowerCase() === currentCategory.toLowerCase());
+                title.textContent = `📋 ${currentCategory} Items`;
+            } else {
+                title.textContent = '📋 All Items';
+            }
+            
+            // Filter by search term
+            if (searchTerm) {
+                itemsToShow = itemsToShow.filter(i => 
+                    i.item_name.toLowerCase().includes(searchTerm) ||
+                    i.category.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            countBadge.textContent = `${itemsToShow.length} items`;
+            
+            if (itemsToShow.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">No ${currentCategory || ''} items found</td></tr>`;
+            } else {
+                tbody.innerHTML = itemsToShow.map(item => `
+                    <tr>
+                        <td><strong>${item.item_name}</strong></td>
+                        <td><span class="badge ${getCategoryBadge(item.category)}">${item.category}</span></td>
+                        <td class="quantity-ok">${item.quantity.toFixed(1)}</td>
+                        <td>${item.unit}</td>
+                        <td class="action-btns">
+                            <button class="btn btn-secondary" onclick="openEditModal('${item.item_name.replace(/'/g, "\\'")}', '${item.category}', ${item.quantity}, '${item.unit}')">✏️</button>
+                            <button class="btn btn-danger" onclick="deleteItem('${item.item_name.replace(/'/g, "\\'")}')">🗑️</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+        
+        // Filter inventory by search
+        function filterInventory() {
+            updateInventoryDisplay();
+        }
+
+        // Load inventory
+        async function loadInventory() {
+            try {
+                const response = await fetch('/api/inventory');
+                const data = await response.json();
+                
+                allInventory = data.inventory;
+                
+                // Update category cards
+                const categoryStats = document.getElementById('categoryStats');
+                const allCategories = ['Beverages', 'Bread', 'Dairy', 'Desserts', 'Frozen Foods', 'Fruits', 'Grocery', 'Sauce', 'Vegetable'];
+                const icons = { 'Beverages': '🥤', 'Bread': '🍞', 'Dairy': '🥛', 'Desserts': '🍰', 'Frozen Foods': '❄️', 'Fruits': '🍎', 'Grocery': '🛒', 'Sauce': '🫙', 'Vegetable': '🥬' };
+                
+                categoryStats.innerHTML = allCategories.map(category => {
+                    const count = allInventory.filter(i => i.category.toLowerCase() === category.toLowerCase() && i.quantity > 0).length;
+                    return `
+                        <div class="stat-card category-card ${currentCategory === category ? 'active' : ''}" 
+                             data-category="${category}" 
+                             onclick="filterByCategory('${category}')">
+                            <div class="stat-icon ${getCategoryBadge(category)}">${icons[category]}</div>
+                            <div class="stat-value">${count}</div>
+                            <div class="stat-label">${category}</div>
+                        </div>
+                    `;
+                }).join('');
+                
+                updateInventoryDisplay();
+
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+            }
+        }
+
+        // Current transaction filter
+        let currentTransactionFilter = '';
+
+        // Filter transactions
+        function filterTransactions(type) {
+            currentTransactionFilter = type;
+            
+            // Update active button
+            document.querySelectorAll('.activity-filter').forEach(btn => btn.classList.remove('active'));
+            if (type === '') document.getElementById('filterAll').classList.add('active');
+            else if (type === 'purchase') document.getElementById('filterIn').classList.add('active');
+            else if (type === 'kitchen') document.getElementById('filterOut').classList.add('active');
+            
+            loadTransactions();
+        }
+
+        // Filter by date - now handled automatically by loadTransactions
+
+        // Load transactions with date range
+        async function loadTransactions() {
+            try {
+                const fromDate = document.getElementById('fromDateFilter').value;
+                const toDate = document.getElementById('toDateFilter').value;
+                
+                let url = '/api/transactions?limit=100';
+                if (currentTransactionFilter) {
+                    url += `&type=${currentTransactionFilter}`;
+                }
+                if (fromDate) url += `&from_date=${fromDate}`;
+                if (toDate) url += `&to_date=${toDate}`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Update transactions table
+                const tbody = document.getElementById('transactionsTable');
+                if (data.transactions.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">No transactions for selected dates</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = data.transactions.map(txn => {
+                    const isManagerAdjust = txn.notes === 'Adjusted by Manager';
+                    const label = isManagerAdjust ? ' (Manager)' : '';
+                    return `
+                    <tr>
+                        <td>${new Date(txn.created_at).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</td>
+                        <td>${txn.item_name}${label}</td>
+                        <td class="${txn.transaction_type === 'purchase' ? 'quantity-ok' : 'quantity-low'}">${txn.transaction_type === 'purchase' ? '+' : '-'}${txn.quantity}</td>
+                        <td><span class="badge ${txn.transaction_type === 'purchase' ? 'badge-purchase' : 'badge-kitchen'}">
+                            ${txn.transaction_type === 'purchase' ? '📥 In' : '📤 Out'}
+                        </span></td>
+                    </tr>
+                `}).join('');
+
+            } catch (error) {
+                console.error('Error loading transactions:', error);
+            }
+        }
+
+        // Export manager transactions to Excel
+        function exportManagerTransactions() {
+            const fromDate = document.getElementById('fromDateFilter').value;
+            const toDate = document.getElementById('toDateFilter').value;
+            
+            let url = '/api/transactions/export';
+            if (currentTransactionFilter) url += `?type=${currentTransactionFilter}`;
+            else url += '?';
+            if (fromDate) url += `&from_date=${fromDate}`;
+            if (toDate) url += `&to_date=${toDate}`;
+            
+            window.location.href = url;
+        }
+
+        // Set default dates to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('fromDateFilter').value = today;
+        document.getElementById('toDateFilter').value = today;
+
+        // Initial load
+        loadInventory();
+        loadTransactions();
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            loadInventory();
+            loadTransactions();
+        }, 30000);
+
+        // ============== Manager CRUD Functions ==============
+        
+        // Show alert message
+        function showAlert(type, message) {
+            const container = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span><span>${message}</span>`;
+            container.appendChild(alertDiv);
+            setTimeout(() => alertDiv.remove(), 5000);
+        }
+
+        // Open Add Modal
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = '➕ Add New Item';
+            document.getElementById('originalName').value = '';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemCategory').value = '';
+            document.getElementById('itemQuantity').value = '0';
+            document.getElementById('itemUnit').value = 'Kg';
+            document.getElementById('itemModal').style.display = 'flex';
+            
+            // Populate existing items datalist
+            populateExistingItemsList();
+        }
+        
+        // Populate existing items for autocomplete
+        function populateExistingItemsList() {
+            const datalist = document.getElementById('existingItemsList');
+            datalist.innerHTML = inventoryData.map(item => 
+                `<option value="${item.item_name}" data-category="${item.category}" data-unit="${item.unit}">`
+            ).join('');
+        }
+        
+        // Auto-fill category and unit when existing item is selected
+        document.getElementById('itemName').addEventListener('input', function() {
+            const selectedItem = inventoryData.find(item => item.item_name === this.value);
+            if (selectedItem) {
+                document.getElementById('itemCategory').value = selectedItem.category;
+                document.getElementById('itemUnit').value = selectedItem.unit;
+            }
+        });
+
+        // Open Edit Modal
+        function openEditModal(name, category, quantity, unit) {
+            document.getElementById('modalTitle').textContent = '✏️ Edit Item';
+            document.getElementById('originalName').value = name;
+            document.getElementById('itemName').value = name;
+            document.getElementById('itemCategory').value = category;
+            document.getElementById('itemQuantity').value = quantity;
+            document.getElementById('itemUnit').value = unit;
+            document.getElementById('itemModal').style.display = 'flex';
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('itemModal').style.display = 'none';
+        }
+
+        // Save Item (Add or Edit)
+        document.getElementById('itemForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const originalName = document.getElementById('originalName').value;
+            const itemName = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('itemCategory').value;
+            const quantity = parseFloat(document.getElementById('itemQuantity').value) || 0;
+            const unit = document.getElementById('itemUnit').value;
+
+            const isEdit = originalName !== '';
+
+            try {
+                const url = isEdit ? '/api/manager/update' : '/api/manager/add';
+                const method = isEdit ? 'PUT' : 'POST';
+                
+                const body = isEdit 
+                    ? { original_name: originalName, item_name: itemName, category, quantity, unit }
+                    : { item_name: itemName, category, quantity, unit };
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert('success', result.message);
+                    closeModal();
+                    loadInventory();
+                    loadTransactions();
+                } else {
+                    showAlert('error', result.error);
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to save item: ' + error.message);
+            }
+        });
+
+        // Delete Item
+        async function deleteItem(itemName) {
+            if (!confirm(`Are you sure you want to delete "${itemName}"?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/manager/delete', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ item_name: itemName })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showAlert('success', result.message);
+                    loadInventory();
+                    loadTransactions();
+                } else {
+                    showAlert('error', result.error);
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to delete item: ' + error.message);
+            }
+        }
+
+        // ============== Category Management ==============
+        
+        let allCategories = [];
+
+        // Load categories from API
+        async function loadCategories() {
+            try {
+                const response = await fetch('/api/categories');
+                const data = await response.json();
+                allCategories = data.categories;
+                updateCategoryDropdowns();
+                updateCategoriesTable();
+            } catch (error) {
+                console.error('Error loading categories:', error);
+            }
+        }
+
+        // Update category dropdowns in forms
+        function updateCategoryDropdowns() {
+            const dropdown = document.getElementById('itemCategory');
+            if (dropdown) {
+                const currentValue = dropdown.value;
+                dropdown.innerHTML = '<option value="">Select category...</option>' + 
+                    allCategories.map(cat => `<option value="${cat.name}">${cat.icon} ${cat.name}</option>`).join('');
+                dropdown.value = currentValue;
+            }
+        }
+
+        // Open category modal
+        function openCategoryModal() {
+            loadCategories();
+            document.getElementById('categoryModal').style.display = 'flex';
+        }
+
+        // Close category modal
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').style.display = 'none';
+        }
+
+        // Update categories table in modal
+        function updateCategoriesTable() {
+            const tbody = document.getElementById('categoriesTable');
+            if (allCategories.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">No categories</td></tr>';
+                return;
+            }
+            tbody.innerHTML = allCategories.map(cat => `
+                <tr>
+                    <td><input type="text" class="form-input" style="width:50px; text-align:center;" value="${cat.icon}" id="icon_${cat.id}"></td>
+                    <td><input type="text" class="form-input" value="${cat.name}" id="name_${cat.id}"></td>
+                    <td style="display:flex; gap:0.25rem;">
+                        <button class="btn btn-primary" onclick="saveCategory(${cat.id})" title="Save">💾</button>
+                        <button class="btn btn-danger" onclick="deleteCategory(${cat.id}, '${cat.name}')" title="Delete">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Add new category
+        async function addNewCategory() {
+            const name = document.getElementById('newCategoryName').value.trim();
+            const icon = document.getElementById('newCategoryIcon').value.trim() || '📦';
+            
+            if (!name) {
+                showAlert('error', 'Category name is required');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/categories/add', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, icon })
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('success', result.message);
+                    document.getElementById('newCategoryName').value = '';
+                    document.getElementById('newCategoryIcon').value = '📦';
+                    loadCategories();
+                    loadInventory();
+                } else {
+                    showAlert('error', result.error);
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to add category: ' + error.message);
+            }
+        }
+
+        // Save category (update)
+        async function saveCategory(categoryId) {
+            const name = document.getElementById(`name_${categoryId}`).value.trim();
+            const icon = document.getElementById(`icon_${categoryId}`).value.trim() || '📦';
+
+            if (!name) {
+                showAlert('error', 'Category name is required');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/categories/update', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: categoryId, name, icon })
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('success', result.message);
+                    loadCategories();
+                    loadInventory();
+                } else {
+                    showAlert('error', result.error);
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to update category: ' + error.message);
+            }
+        }
+
+        // Delete category
+        async function deleteCategory(categoryId, categoryName) {
+            if (!confirm(`Delete category "${categoryName}"? This only works if no items use this category.`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/categories/delete', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: categoryId })
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    showAlert('success', result.message);
+                    loadCategories();
+                    loadInventory();
+                } else {
+                    showAlert('error', result.error);
+                }
+            } catch (error) {
+                showAlert('error', 'Failed to delete category: ' + error.message);
+            }
+        }
+
+        // Load categories on page load
+        loadCategories();
+    </script>
+</body>
+</html>

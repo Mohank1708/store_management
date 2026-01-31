@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Purchase Manager - Bhagath Store Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <img
+            src="{{ url_for('static', filename='logo.png') }}"
+            alt="Bhagat Logo"
+            style="width: 50px; height: 50px; border-radius: 8px"
+          />
+          <span class="header-title">Bhagath Store Management</span>
+          <span
+            class="header-role"
+            style="background: rgba(16, 185, 129, 0.2); color: #10b981"
+            >Purchase Manager</span
+          >
+        </div>
+        <div class="header-right">
+          <div class="current-time" id="currentTime"></div>
+          <div class="header-user">
+            <div
+              class="header-avatar"
+              style="
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+              "
+            >
+              {{ username[0].upper() }}
+            </div>
+            <span>{{ username }}</span>
+          </div>
+          <a href="/logout" class="btn btn-secondary btn-logout">Logout</a>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="page-title">
+          <h1>📥 Add Purchased Items</h1>
+          <p>Upload Excel file or manually add items to store inventory</p>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alertContainer"></div>
+
+        <!-- Method Selection Screen -->
+        <div
+          id="methodSelection"
+          class="card"
+          style="max-width: 600px; margin: 0 auto"
+        >
+          <div class="card-header">
+            <h3 class="card-title">📥 Choose Entry Method</h3>
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1rem;
+              padding: 1rem 0;
+            "
+          >
+            <button
+              class="btn btn-primary"
+              style="padding: 2rem; font-size: 1.1rem"
+              onclick="showUploadMethod('excel')"
+            >
+              <div style="font-size: 2rem; margin-bottom: 0.5rem">📊</div>
+              Upload Excel File
+            </button>
+            <button
+              class="btn btn-success"
+              style="padding: 2rem; font-size: 1.1rem"
+              onclick="showUploadMethod('manual')"
+            >
+              <div style="font-size: 2rem; margin-bottom: 0.5rem">✏️</div>
+              Add Manually
+            </button>
+          </div>
+        </div>
+
+        <!-- Excel Upload Section (Hidden initially) -->
+        <div id="excelSection" style="display: none">
+          <button
+            class="btn btn-secondary"
+            style="margin-bottom: 1rem"
+            onclick="backToMethodSelection()"
+          >
+            ← Back to Selection
+          </button>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">📁 Upload Excel File</h3>
+            </div>
+
+            <!-- Step 1: File Selection -->
+            <div id="fileSelectSection">
+              <div class="file-upload" id="dropZone">
+                <div class="file-upload-icon">📊</div>
+                <div class="file-upload-text">
+                  Drag & drop Excel file here or click to browse
+                </div>
+                <div class="file-upload-hint">
+                  Supports .xlsx and .xls files
+                </div>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept=".xlsx,.xls"
+                  style="display: none"
+                />
+              </div>
+              <div id="selectedFile" style="margin-top: 1rem; display: none">
+                <div class="alert alert-info">
+                  <span>📄</span>
+                  <span id="fileName"></span>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary btn-full"
+                style="margin-top: 1rem"
+                id="previewBtn"
+                disabled
+                onclick="previewFile()"
+              >
+                <span>👁️ Preview Items</span>
+              </button>
+            </div>
+
+            <!-- Step 2: Preview Table (Hidden initially) -->
+            <div id="previewSection" style="display: none">
+              <div class="alert alert-info" style="margin-bottom: 1rem">
+                <span>📋</span>
+                <span
+                  ><strong id="previewCount">0</strong> items found in file.
+                  Review below and confirm to add to store.</span
+                >
+              </div>
+              <div id="categoryWarning" style="display:none;"></div>
+              <div
+                class="table-container"
+                style="max-height: 300px; overflow-y: auto; margin-bottom: 1rem"
+              >
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:40px; text-align:center;">#</th>
+                      <th>Item Name</th>
+                      <th>Category</th>
+                      <th style="text-align:center;">Qty</th>
+                      <th style="text-align:center;">Unit</th>
+                    </tr>
+                  </thead>
+                  <tbody id="previewTable"></tbody>
+                </table>
+              </div>
+              <div style="display: flex; gap: 1rem">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  style="flex: 1"
+                  onclick="cancelPreview()"
+                >
+                  <span>✖ Cancel</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  style="flex: 2"
+                  id="confirmUploadBtn"
+                  onclick="confirmUpload()"
+                >
+                  <span>✅ Confirm & Add to Store</span>
+                </button>
+              </div>
+            </div>
+
+            <div
+              style="
+                margin-top: 1.5rem;
+                padding: 1rem;
+                background: var(--bg-secondary);
+                border-radius: 12px;
+              "
+            >
+              <h4 style="margin-bottom: 0.5rem; color: var(--text-secondary)">
+                Required Excel Columns:
+              </h4>
+              <code style="font-size: 0.8rem; color: var(--accent-secondary)"
+                >Item Name, Category, Quantity, Unit</code
+              >
+              <p
+                style="
+                  font-size: 0.75rem;
+                  color: var(--text-muted);
+                  margin-top: 0.5rem;
+                "
+              >
+                Optional: Rate, Amount, Vendor
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Entry Section (Hidden initially) -->
+        <div id="manualSection" style="display: none">
+          <button
+            class="btn btn-secondary"
+            style="margin-bottom: 1rem"
+            onclick="backToMethodSelection()"
+          >
+            ← Back to Selection
+          </button>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">✏️ Add Item Manually</h3>
+            </div>
+            <form id="manualForm">
+              <div class="form-group">
+                <label class="form-label">Item Name</label>
+                <input
+                  type="text"
+                  id="itemName"
+                  class="form-input"
+                  placeholder="Click to see items..."
+                  list="itemsList"
+                  required
+                />
+                <datalist id="itemsList"></datalist>
+              </div>
+              <div
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem"
+              >
+                <div class="form-group">
+                  <label class="form-label">Category</label>
+                  <select id="category" class="form-select" required>
+                    <option value="">Select...</option>
+                    <option value="Beverages">Beverages</option>
+                    <option value="Bread">Bread</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Desserts">Desserts</option>
+                    <option value="Frozen Foods">Frozen Foods</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Grocery">Grocery</option>
+                    <option value="Sauce">Sauce</option>
+                    <option value="Vegetable">Vegetable</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Unit</label>
+                  <select id="unit" class="form-select" required>
+                    <option value="">Select...</option>
+                    <option value="BTL">BTL</option>
+                    <option value="KG">KG</option>
+                    <option value="LTR">LTR</option>
+                    <option value="NOS">NOS</option>
+                    <option value="PCS">PCS</option>
+                    <option value="PKT">PKT</option>
+                    <option value="TIN">TIN</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 1rem;
+                "
+              >
+                <div class="form-group">
+                  <label class="form-label">Quantity</label>
+                  <input
+                    type="number"
+                    id="quantity"
+                    class="form-input"
+                    placeholder="0"
+                    step="0.1"
+                    min="0.1"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Rate (₹)</label>
+                  <input
+                    type="number"
+                    id="rate"
+                    class="form-input"
+                    placeholder="0"
+                    step="0.01"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Amount (₹)</label>
+                  <input
+                    type="number"
+                    id="amount"
+                    class="form-input"
+                    placeholder="0"
+                    step="0.01"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Vendor</label>
+                <input
+                  type="text"
+                  id="vendor"
+                  class="form-input"
+                  placeholder="e.g., Sharma Traders"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-success btn-full"
+                id="addBtn"
+              >
+                <span>➕ Add to Store</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Recent Additions -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">
+              📋 Recent Purchases
+              <small style="font-size: 0.7rem; color: var(--text-muted)"
+                >(Last 30 days)</small
+              >
+            </h3>
+            <div
+              style="
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                flex-wrap: wrap;
+              "
+            >
+              <input
+                type="date"
+                id="purchaseFromDate"
+                class="form-input"
+                style="width: 130px; padding: 0.4rem"
+                onchange="loadRecentPurchases()"
+                title="From Date"
+              />
+              <span style="color: var(--text-muted)">to</span>
+              <input
+                type="date"
+                id="purchaseToDate"
+                class="form-input"
+                style="width: 130px; padding: 0.4rem"
+                onchange="loadRecentPurchases()"
+                title="To Date"
+              />
+              <button class="btn btn-secondary" onclick="loadRecentPurchases()">
+                🔄
+              </button>
+              <button
+                class="btn btn-primary"
+                onclick="exportPurchasesToExcel()"
+                title="Export to Excel"
+              >
+                📥 Export
+              </button>
+            </div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date/Time</th>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                  <th>Vendor</th>
+                </tr>
+              </thead>
+              <tbody id="purchasesTable">
+                <tr>
+                  <td colspan="7" class="loading">Loading...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Update current time
+      function updateTime() {
+        const now = new Date();
+        document.getElementById("currentTime").textContent = now.toLocaleString(
+          "en-IN",
+          {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          },
+        );
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+
+      // Show alert
+      function showAlert(type, message) {
+        const container = document.getElementById("alertContainer");
+        const alertDiv = document.createElement("div");
+        alertDiv.className = `alert alert-${type}`;
+        alertDiv.innerHTML = `<span>${type === "success" ? "✅" : "❌"}</span><span>${message}</span>`;
+        container.appendChild(alertDiv);
+        setTimeout(() => alertDiv.remove(), 5000);
+      }
+
+      // Method selection functions
+      function showUploadMethod(method) {
+        document.getElementById("methodSelection").style.display = "none";
+        if (method === "excel") {
+          document.getElementById("excelSection").style.display = "block";
+          document.getElementById("manualSection").style.display = "none";
+        } else if (method === "manual") {
+          document.getElementById("excelSection").style.display = "none";
+          document.getElementById("manualSection").style.display = "block";
+        }
+      }
+
+      function backToMethodSelection() {
+        document.getElementById("methodSelection").style.display = "block";
+        document.getElementById("excelSection").style.display = "none";
+        document.getElementById("manualSection").style.display = "none";
+        // Reset file selection if going back
+        cancelPreview();
+      }
+
+      // Store items data for auto-fill
+      let itemsData = [];
+
+      // Load items for autocomplete
+      async function loadItems() {
+        try {
+          const response = await fetch("/api/items");
+          const data = await response.json();
+          itemsData = data.items; // Store for lookup
+          const datalist = document.getElementById("itemsList");
+          datalist.innerHTML = data.items
+            .map((item) => `<option value="${item.name}">`)
+            .join("");
+        } catch (error) {
+          console.error("Error loading items:", error);
+        }
+      }
+      loadItems();
+
+      // Auto-fill category and unit when item is selected from suggestions
+      document
+        .getElementById("itemName")
+        .addEventListener("input", function () {
+          const selectedItem = itemsData.find(
+            (item) => item.name === this.value,
+          );
+          if (selectedItem) {
+            // Capitalize first letter for proper dropdown matching
+            const category =
+              selectedItem.category.charAt(0).toUpperCase() +
+              selectedItem.category.slice(1).toLowerCase();
+            document.getElementById("category").value = category;
+            // Capitalize first letter of unit too
+            const unit =
+              selectedItem.unit.charAt(0).toUpperCase() +
+              selectedItem.unit.slice(1).toLowerCase();
+            document.getElementById("unit").value = unit;
+          }
+        });
+
+      // Show suggestions automatically when clicking on the input field
+      document
+        .getElementById("itemName")
+        .addEventListener("focus", function () {
+          // Trigger the datalist to show by simulating input
+          this.value = this.value;
+          // For browsers that need a more explicit trigger
+          if (this.value === "") {
+            this.placeholder = "Click to see items...";
+          }
+        });
+
+      // Also show on click
+      document
+        .getElementById("itemName")
+        .addEventListener("click", function () {
+          // Force show dropdown in some browsers
+          const event = new Event("input", { bubbles: true });
+          this.dispatchEvent(event);
+        });
+
+      // Auto-calculate amount
+      document
+        .getElementById("quantity")
+        .addEventListener("input", calculateAmount);
+      document
+        .getElementById("rate")
+        .addEventListener("input", calculateAmount);
+      function calculateAmount() {
+        const qty = parseFloat(document.getElementById("quantity").value) || 0;
+        const rate = parseFloat(document.getElementById("rate").value) || 0;
+        if (qty && rate) {
+          document.getElementById("amount").value = (qty * rate).toFixed(2);
+        }
+      }
+
+      // File upload handling
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("fileInput");
+      const previewBtn = document.getElementById("previewBtn");
+      let previewItems = []; // Store items for confirmation
+
+      dropZone.addEventListener("click", () => fileInput.click());
+
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+      });
+
+      dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("dragover");
+      });
+
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        if (e.dataTransfer.files.length) {
+          fileInput.files = e.dataTransfer.files;
+          handleFileSelect();
+        }
+      });
+
+      fileInput.addEventListener("change", handleFileSelect);
+
+      function handleFileSelect() {
+        const file = fileInput.files[0];
+        if (file) {
+          document.getElementById("fileName").textContent = file.name;
+          document.getElementById("selectedFile").style.display = "block";
+          previewBtn.disabled = false;
+        }
+      }
+
+      // Preview file contents
+      async function previewFile() {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        previewBtn.disabled = true;
+        previewBtn.innerHTML = '<span class="loading">Reading file...</span>';
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          const response = await fetch("/api/purchase/preview", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            previewItems = result.items;
+            document.getElementById("previewCount").textContent = result.count;
+
+            // Show warning if there are auto-detected categories
+            const warningDiv = document.getElementById("categoryWarning");
+            if (result.warning_count > 0) {
+              warningDiv.innerHTML = `
+                <div class="alert alert-warning" style="margin-bottom: 1rem; background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #f59e0b;">
+                  <span>⚠️</span>
+                  <span><strong>${result.warning_count} item(s)</strong> have auto-detected categories (highlighted in red). Please verify: <strong>${result.warning_items.slice(0, 5).join(', ')}${result.warning_items.length > 5 ? '...' : ''}</strong></span>
+                </div>
+              `;
+              warningDiv.style.display = 'block';
+            } else {
+              warningDiv.style.display = 'none';
+            }
+
+            // Helper function to get category badge class and emoji
+            const tbody = document.getElementById("previewTable");
+            const getCategoryInfo = (cat) => {
+              const info = {
+                'Beverages': { color: '#06b6d4', emoji: '🥤' },
+                'Bread': { color: '#f59e0b', emoji: '🍞' },
+                'Dairy': { color: '#3b82f6', emoji: '🥛' },
+                'Desserts': { color: '#ec4899', emoji: '🍰' },
+                'Frozen Foods': { color: '#0ea5e9', emoji: '❄️' },
+                'Fruits': { color: '#f97316', emoji: '🍎' },
+                'Grocery': { color: '#8b5cf6', emoji: '🛒' },
+                'Sauce': { color: '#ef4444', emoji: '🫙' },
+                'Vegetable': { color: '#10b981', emoji: '🥬' }
+              };
+              return info[cat] || { color: '#6b7280', emoji: '📋' };
+            };
+
+            tbody.innerHTML = result.items
+              .map((item, idx) => {
+                const catInfo = getCategoryInfo(item.category);
+                const isWarning = item.auto_detected;
+                const rowStyle = isWarning ? 'background-color: rgba(239, 68, 68, 0.15);' : '';
+                const warningIcon = isWarning ? '⚠️ ' : '';
+                const borderColor = isWarning ? '#ef4444' : catInfo.color;
+                return `
+                  <tr style="${rowStyle}">
+                    <td style="text-align:center; width:40px;">${idx + 1}</td>
+                    <td><strong>${warningIcon}${item.item_name}</strong></td>
+                    <td>
+                      <span style="display:inline-block; padding:0.3rem 0.6rem; border-radius:4px; background-color:${isWarning ? 'rgba(239,68,68,0.2)' : catInfo.color + '20'}; border:2px solid ${borderColor}; color:${isWarning ? '#ef4444' : catInfo.color}; font-weight:600; font-size:0.85rem;">
+                        ${catInfo.emoji} ${item.category}${isWarning ? ' ❓' : ''}
+                      </span>
+                    </td>
+                    <td style="text-align:center; font-weight:600;">${item.quantity}</td>
+                    <td style="text-align:center;">${item.unit}</td>
+                  </tr>
+                `;
+              })
+              .join("");
+
+            // Show preview section, hide file select
+            document.getElementById("fileSelectSection").style.display = "none";
+            document.getElementById("previewSection").style.display = "block";
+          } else {
+            showAlert("error", result.error);
+          }
+        } catch (error) {
+          showAlert("error", "Failed to read file: " + error.message);
+        } finally {
+          previewBtn.disabled = false;
+          previewBtn.innerHTML = "<span>👁️ Preview Items</span>";
+        }
+      }
+
+      // Cancel preview and go back
+      function cancelPreview() {
+        previewItems = [];
+        fileInput.value = "";
+        document.getElementById("selectedFile").style.display = "none";
+        document.getElementById("previewSection").style.display = "none";
+        document.getElementById("fileSelectSection").style.display = "block";
+        previewBtn.disabled = true;
+      }
+
+      // Update a preview item field
+      function updatePreviewItem(index, field, value) {
+        if (index >= 0 && index < previewItems.length) {
+          previewItems[index][field] = value;
+        }
+      }
+
+      // Remove a preview item
+      function removePreviewItem(index) {
+        if (index >= 0 && index < previewItems.length) {
+          previewItems.splice(index, 1);
+          document.getElementById("previewCount").textContent =
+            previewItems.length;
+
+          // Re-render the table
+          const tbody = document.getElementById("previewTable");
+          if (previewItems.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="8" style="text-align:center; color:var(--text-muted);">No items</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = previewItems
+            .map(
+              (item, idx) => `
+            <tr>
+              <td>${idx + 1}</td>
+              <td><input type="text" class="form-input" style="width:100%;" value="${item.item_name}" onchange="updatePreviewItem(${idx}, 'item_name', this.value)"></td>
+              <td>
+                <select class="form-select" style="width:100%;" onchange="updatePreviewItem(${idx}, 'category', this.value)">
+                  <option value="Beverages" ${item.category === "Beverages" ? "selected" : ""}>Beverages</option>
+                  <option value="Bread" ${item.category === "Bread" ? "selected" : ""}>Bread</option>
+                  <option value="Dairy" ${item.category === "Dairy" ? "selected" : ""}>Dairy</option>
+                  <option value="Desserts" ${item.category === "Desserts" ? "selected" : ""}>Desserts</option>
+                  <option value="Frozen Foods" ${item.category === "Frozen Foods" ? "selected" : ""}>Frozen Foods</option>
+                  <option value="Fruits" ${item.category === "Fruits" ? "selected" : ""}>Fruits</option>
+                  <option value="Grocery" ${item.category === "Grocery" ? "selected" : ""}>Grocery</option>
+                  <option value="Sauce" ${item.category === "Sauce" ? "selected" : ""}>Sauce</option>
+                  <option value="Vegetable" ${item.category === "Vegetable" ? "selected" : ""}>Vegetable</option>
+                </select>
+              </td>
+              <td><input type="number" class="form-input" style="width:70px;" step="0.1" min="0" value="${item.quantity}" onchange="updatePreviewItem(${idx}, 'quantity', parseFloat(this.value))"></td>
+              <td>
+                <select class="form-select" style="width:70px;" onchange="updatePreviewItem(${idx}, 'unit', this.value)">
+                  <option value="BTL" ${item.unit === "BTL" ? "selected" : ""}>BTL</option>
+                  <option value="KG" ${item.unit === "KG" ? "selected" : ""}>KG</option>
+                  <option value="LTR" ${item.unit === "LTR" ? "selected" : ""}>LTR</option>
+                  <option value="NOS" ${item.unit === "NOS" ? "selected" : ""}>NOS</option>
+                  <option value="PCS" ${item.unit === "PCS" ? "selected" : ""}>PCS</option>
+                  <option value="PKT" ${item.unit === "PKT" ? "selected" : ""}>PKT</option>
+                  <option value="TIN" ${item.unit === "TIN" ? "selected" : ""}>TIN</option>
+                </select>
+              </td>
+              <td><input type="number" class="form-input" style="width:80px;" step="0.01" min="0" value="${item.rate || ""}" onchange="updatePreviewItem(${idx}, 'rate', parseFloat(this.value) || 0)" placeholder="₹"></td>
+              <td><input type="text" class="form-input" style="width:100%;" value="${item.vendor || ""}" onchange="updatePreviewItem(${idx}, 'vendor', this.value)" placeholder="Vendor"></td>
+              <td><button class="btn btn-danger" style="padding:0.3rem 0.5rem;" onclick="removePreviewItem(${idx})" title="Remove">🗑️</button></td>
+            </tr>
+          `,
+            )
+            .join("");
+        }
+      }
+
+      // Confirm and upload items
+      async function confirmUpload() {
+        if (previewItems.length === 0) return;
+
+        const confirmBtn = document.getElementById("confirmUploadBtn");
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = '<span class="loading">Adding items...</span>';
+
+        try {
+          const response = await fetch("/api/purchase/upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ items: previewItems }),
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            showAlert("success", result.message);
+            cancelPreview();
+            loadRecentPurchases();
+            loadItems();
+          } else {
+            showAlert("error", result.error);
+          }
+        } catch (error) {
+          showAlert("error", "Upload failed: " + error.message);
+        } finally {
+          confirmBtn.disabled = false;
+          confirmBtn.innerHTML = "<span>✅ Confirm & Add to Store</span>";
+        }
+      }
+
+      // Manual form submission
+      document
+        .getElementById("manualForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const addBtn = document.getElementById("addBtn");
+          addBtn.disabled = true;
+          addBtn.innerHTML = '<span class="loading">Adding...</span>';
+
+          const data = {
+            item_name: document.getElementById("itemName").value,
+            category: document.getElementById("category").value,
+            quantity: parseFloat(document.getElementById("quantity").value),
+            unit: document.getElementById("unit").value,
+            rate: parseFloat(document.getElementById("rate").value) || null,
+            amount: parseFloat(document.getElementById("amount").value) || null,
+            vendor: document.getElementById("vendor").value || null,
+          };
+
+          try {
+            const response = await fetch("/api/purchase", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              showAlert("success", result.message);
+              this.reset();
+              loadRecentPurchases();
+              loadItems();
+            } else {
+              showAlert("error", result.error);
+            }
+          } catch (error) {
+            showAlert("error", "Failed to add item: " + error.message);
+          } finally {
+            addBtn.disabled = false;
+            addBtn.innerHTML = "<span>➕ Add to Store</span>";
+          }
+        });
+
+      // Load recent purchases with date range
+      async function loadRecentPurchases() {
+        try {
+          const fromDate = document.getElementById("purchaseFromDate").value;
+          const toDate = document.getElementById("purchaseToDate").value;
+
+          let url = "/api/transactions?type=purchase&limit=100";
+          if (fromDate) url += `&from_date=${fromDate}`;
+          if (toDate) url += `&to_date=${toDate}`;
+
+          const response = await fetch(url);
+          const data = await response.json();
+
+          const tbody = document.getElementById("purchasesTable");
+          if (data.transactions.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="7" style="text-align:center; color:var(--text-muted);">No purchases found for selected dates</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = data.transactions
+            .map(
+              (txn) => `
+                    <tr>
+                        <td style="font-size: 0.8rem;">${new Date(txn.created_at).toLocaleString("en-IN", { month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" })}</td>
+                        <td><strong>${txn.item_name}</strong></td>
+                        <td><span class="badge badge-${txn.category.toLowerCase()}">${txn.category}</span></td>
+                        <td>${txn.quantity} ${txn.unit}</td>
+                        <td>${txn.rate ? "₹" + txn.rate : "-"}</td>
+                        <td>${txn.amount ? "₹" + txn.amount : "-"}</td>
+                        <td>${txn.vendor || "-"}</td>
+                    </tr>
+                `,
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error loading purchases:", error);
+        }
+      }
+
+      // Export purchases to Excel
+      function exportPurchasesToExcel() {
+        const fromDate = document.getElementById("purchaseFromDate").value;
+        const toDate = document.getElementById("purchaseToDate").value;
+
+        let url = "/api/transactions/export?type=purchase";
+        if (fromDate) url += `&from_date=${fromDate}`;
+        if (toDate) url += `&to_date=${toDate}`;
+
+        window.location.href = url;
+      }
+
+      // Set default dates to today
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("purchaseFromDate").value = today;
+      document.getElementById("purchaseToDate").value = today;
+
+      loadRecentPurchases();
+    </script>
+  </body>
+</html>
